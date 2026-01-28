@@ -490,8 +490,9 @@ def mark_notification_read(request, id):
     notification.save()
     return redirect('notifications')
 
-def delete_notification(request, id):
+"""def delete_notification(request, id):
     # Only allow user to delete their own notification
     notification = get_object_or_404(Notification, id=id, user=request.user)
     notification.delete()
     return redirect(request.META.get('HTTP_REFERER', 'dashboard'))
+"""
