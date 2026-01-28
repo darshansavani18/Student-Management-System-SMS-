@@ -1,0 +1,36 @@
+{% extends "school/base.html" %}
+{% load static %}
+{% block title %}Student Profile | SMS{% endblock %}
+{% block page_title %}Student Profile{% endblock %}
+
+{% block content %}
+<div class="card profile-card">
+    <div class="profile-header">
+        {% if student.profile_image %}
+            <div class="profile-avatar">
+                <img src="{{ student.profile_image.url }}" alt="Profile Image" class="profile-image">
+            </div>
+        {% else %}
+            <img src="{% static 'school/default_profile.png' %}" alt="Default Profile Image" class="profile-image">
+        {% endif %}
+        <h2>{{ student.user.username }}</h2>
+        <p>Roll Number: {{ student.roll_number }}</p>
+        <h3 class="h3">Personal Information</h3>
+    </div>
+    <div class="profile-info">
+        
+        
+        <p><strong>Class:</strong> {{ student.class_name }}</p>
+        <p><strong>Section:</strong> {{ student.section }}</p>
+        <p><strong>Gender:</strong> {{ student.gender }}</p>
+        <p><strong>Date of Birth:</strong> {{ student.date_of_birth }}</p>
+        <p><strong>Address:</strong> {{ student.address }}</p>
+        <p><strong>Contact Number:</strong> {{ student.contact_number }}</p>
+    </div>
+    <div class="profile-actions">
+        <a href="{% url 'update_student' student.id %}" class="btn btn-edit">Edit Profile</a>
+        <a href="{% url 'view_students' %}" class="btn btn-secondary">Back to Students</a>
+    </div>
+</div>
+{% endblock %}
+        

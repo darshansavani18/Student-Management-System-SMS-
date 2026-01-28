@@ -1,0 +1,131 @@
+{% extends "school/base.html" %}
+<!--
+    This template extends the main base layout of the SMS.
+    It inherits sidebar, topbar, global CSS, and overall page structure.
+-->
+
+{% block title %}Settings{% endblock %}
+<!--
+    Sets the browser tab title for the Settings page.
+-->
+
+{% block page_title %}Settings{% endblock %}
+<!--
+    Sets the page heading shown in the top navigation bar.
+-->
+
+{% block content %}
+<!--
+    Main content block where the Settings page UI is rendered.
+-->
+
+<div class="settings-container">
+    <!--
+        Wrapper container for all settings sections.
+        Helps control layout width, spacing, and alignment.
+    -->
+
+    <!-- APPEARANCE SETTINGS SECTION -->
+    <div class="card settings-card">
+        <!--
+            Card component for appearance-related settings.
+            Uses the global card design for consistency.
+        -->
+
+        <h3 class="settings-title">Appearance</h3>
+        <!-- Section title -->
+
+        <p class="settings-desc">
+            Customize how the system looks for your account.
+        </p>
+        <!-- Short description to explain the purpose of this section -->
+
+        <form method="POST">
+            <!--
+                Settings form submitted via POST to save user preferences.
+            -->
+
+            {% csrf_token %}
+            <!--
+                CSRF token for security.
+                Required for all POST requests in Django forms.
+            -->
+
+            <div class="setting-item">
+                <!--
+                    Individual setting row.
+                    Aligns label/description on the left
+                    and the toggle switch on the right.
+                -->
+
+                <div>
+                    <!-- Container for label and helper text -->
+
+                    <label class="setting-label">Dark Theme</label>
+                    <!-- Label describing the setting -->
+
+                    <p class="setting-help">
+                        Enable dark mode to reduce eye strain in low-light environments.
+                    </p>
+                    <!-- Helper text explaining why this option exists -->
+                </div>
+
+                <label class="switch">
+                    <!--
+                        Custom toggle switch wrapper.
+                        Provides a modern ON/OFF UI instead of a default checkbox.
+                    -->
+
+                    <input type="checkbox" name="dark_mode"
+                        {% if request.session.dark_mode %}checked{% endif %}>
+                    <!--
+                        Checkbox input that controls dark theme.
+                        Automatically checked if dark_mode is stored as True in session.
+                    -->
+
+                    <span class="slider"></span>
+                    <!--
+                        Visual slider element styled via CSS.
+                        Moves when checkbox is checked/unchecked.
+                    -->
+                </label>
+            </div>
+
+            <div class="settings-actions">
+                <!-- Container for form action buttons -->
+
+                <button class="btn">Save Changes</button>
+                <!--
+                    Submits the form and saves the selected settings.
+                -->
+            </div>
+        </form>
+    </div>
+
+    <!-- FUTURE SETTINGS: ACCOUNT -->
+    <div class="card settings-card disabled">
+        <!--
+            Placeholder card for future Account settings.
+            Disabled visually and functionally to indicate
+            upcoming features.
+        -->
+
+        <h3 class="settings-title">Account</h3>
+        <p class="settings-desc">Profile and security settings (coming soon).</p>
+    </div>
+
+    <!-- FUTURE SETTINGS: NOTIFICATIONS -->
+    <div class="card settings-card disabled">
+        <!--
+            Placeholder card for future Notification settings.
+            Shows system roadmap without enabling interaction.
+        -->
+
+        <h3 class="settings-title">Notifications</h3>
+        <p class="settings-desc">Manage system notifications and alerts.</p>
+    </div>
+
+</div>
+
+{% endblock %}
+<!-- End of Settings page content -->

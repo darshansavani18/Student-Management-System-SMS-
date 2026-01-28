@@ -1,0 +1,67 @@
+{% extends "school/base.html" %}
+
+{% block title %}View Attendance{% endblock %}
+{% block page_title %}Attendance Records{% endblock %}
+
+{% block content %}
+
+<div class="table-wrapper">
+
+    <!-- FILTER BAR -->
+    <div class="attendance-filter">
+        <form method="GET">
+            <label for="date">Filter by Date</label>
+            <input type="date" id="date" name="date" value="{{ selected_date }}">
+            <button class="btn btn-sm">Apply</button>
+        </form>
+    </div>
+
+    <!-- ATTENDANCE TABLE -->
+    <table class="table attendance-view-table">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Date</th>
+                <th>Student Name</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for record in records %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ record.date }}</td>
+                <td>{{ record.student.user.username }}</td>
+                <td>
+                    {% if record.status == "Present" %}
+                        <span class="attendance-status status-present">Present</span>
+                    {% else %}
+                        <span class="attendance-status status-absent">Absent</span>
+                    {% endif %}
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="4" class="text-center">No attendance records found</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+</div>
+<div class="attendance-summary">
+
+    <div class="summary-card present">
+        <h2>{{ total_present }}</h2>
+        <p>Present Students</p>
+    </div>
+
+    <div class="summary-card absent">
+        <h2>{{ total_absent }}</h2>
+        <p>Absent Students</p>
+    </div>
+
+</div>
+
+
+{% endblock %}

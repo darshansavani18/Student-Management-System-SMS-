@@ -1,0 +1,36 @@
+{% extends "school/base.html" %}
+
+{% block title %}Mark Attendance{% endblock%}
+{% block page_title %}Mark Attendance{% endblock %}
+
+{% block content %}
+
+<div class"card attendance-card">
+    <h3>Attendance - {{ today }}</h3>
+
+    <form method="POST">
+        {% csrf_token %}
+        <table class="table attendance-table">
+            <thead>
+                <tr>
+                    <th>Student Name</th>
+                    <th>Present</th>
+                    <th>Absent</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for student in students %}
+                <tr>
+                    <td>{{ student.user.username }}</td>
+                    <td><input type="radio" name={{ student.id }} value ="Present" checked required></td>
+                    <td><input type="radio" name={{ student.id }} value ="Absent" required></td>
+                </tr>
+                {% endfor %}
+                    <div class="dropdown-divider"></div>
+                    <a href="{% url 'logout' %}">🚪 Logout</a>
+            </tbody>
+        </table>
+        <button type="submit" class="btn attendance-submit">Submit Attendance</button>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,32 @@
+{% extends "school/base.html" %}
+
+{% block title %}Notice Board{% endblock %}
+
+{% block content %}
+
+{% if is_admin or is_teacher %}
+    <a href="{% url 'add_notice' %}" class="btn notice-add-btn">➕ Add Notice</a>
+{% endif %}
+
+<div class="notice-board">
+    {% for notice in notices %}
+    <div class="notice-card">
+        <h3>{{ notice.title }}</h3>
+        <p>{{ notice.message }}</p>
+        
+        <div class="notice-meta">
+            Posted By {{ notice.created_by.username }} on {{ notice.created_at|date:"d M Y" }}
+        </div>
+
+        {% if is_admin or is_teacher%}
+        <div class="notice-actions">
+            <a href="{% url 'edit_notice' notice.id %}" class="btn-sm btn-edit">✏️ Edit</a>
+            <a href="{% url 'delete_notice' notice.id %}" class="btn-sm btn-delete">🗑️ Delete</a>
+        </div>
+        {% endif %}
+    </div>
+    {% empty %}
+    <p>No notices available.</p>
+    {% endfor %}
+</div>
+{% endblock %}

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Login | Student Management System</title>
+        <link rel="stylesheet" href="/static/school/css/login.css">
+
+    </head>
+    <body>
+
+    <div class="login-container">
+        <div class="login-card">
+            <h2>Welcome</h2>
+            <p class="subtitle">Login to Student Management System</p>
+
+            {% if error %}
+                <div class="error">{{ error }}</div>
+            {% endif %}
+
+            <form method="POST">
+                {% csrf_token %}
+                
+                <div class="input-group">
+                    <label>Username</label>
+                    <input type="text" name="username" placeholder="Enter username" required>
+                </div>
+
+                <div class="input-group">
+                    <label>Password</label>
+                    <input type="password" name="password" placeholder="Enter password" required>
+                </div>
+
+                <button type="submit" class="login-btn">Login</button>
+            </form>
+
+            <p class="footer-text">© 2026 Student Management System</p>
+        </div>
+    </div>
+
+    </body>
+    </html>

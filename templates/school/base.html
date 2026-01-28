@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}SMS{% endblock %}</title>
+
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'school/css/main.css' %}">
+
+    {% block extra_css %}{% endblock %}
+</head>
+<body class="{% if request.session.dark_mode %}dark-theme{% endif %}">
+<div class="layout">
+
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+        <h2>SMS PANEL</h2>
+        {% if is_admin %}
+            <!-- ADMIN MENU -->
+            <a href="{% url 'dashboard' %}">📊 Dashboard</a>
+            <a href="{% url 'add_student' %}">➕ Add Student</a>
+            <a href="{% url 'view_students' %}">👨‍🎓 View Students</a>
+            <a href="{% url 'add_teacher' %}">➕ Add Teacher</a>
+            <a href="{% url 'view_teachers' %}">👨‍🏫 View Teachers</a>
+            <a href="{% url 'mark_attendance' %}">📝 Mark Attendance</a>
+            <a href="{% url 'view_attendance' %}">📅 View Attendance</a>
+            <a href="{% url 'notice_list' %}">📢 Notice Board</a>
+            <a href="{% url 'add_classroom' %}">➕ Add Class Room</a>
+            <a href="{% url 'view_classroom' %}">🏫 View Class</a>
+             
+        {% elif is_teacher %}
+            <!-- TEACHER MENU -->
+            <a href="{% url 'dashboard' %}">📊 Dashboard</a>
+            <a href="{% url 'add_student' %}">➕ Add Student</a>
+            <a href="{% url 'view_students' %}">👨‍🎓 View Students</a>
+            <a href="{% url 'mark_attendance' %}">📝 Mark Attendance</a>
+            <a href="{% url 'view_attendance' %}">📅 View Attendance</a>
+            <a href="{% url 'notice_list' %}">📢 Notice Board</a>
+            <a href="{% url 'view_classroom' %}">🏫 View Class</a>
+
+        {% elif is_student %}
+            <!-- STUDENT MENU -->
+            <a href="{% url 'dashboard' %}">📊 Dashboard</a>
+            <a href="{% url 'view_attendance' %}">📅 View Attendance</a>
+            <a href="{% url 'notice_list' %}">📢 Notice Board</a>
+            <a href="{% url 'view_classroom' %}">🏫 View Class</a>
+        {% endif %}
+
+    </div>
+
+    <!-- MAIN -->
+    <div class="main">
+
+        <!-- TOP NAVBAR -->
+        <div class="topbar">
+            <h3>{% block page_title %}Dashboard{% endblock %}</h3>
+
+            <div class="user-menu">
+
+                <span class="user-name">
+                    👤 {{ request.user.username }}
+                </span>
+
+                <a href="{% url 'my_profile' %}" class="user-menu-link">My Profile</a>
+                <a href="{% url 'notifications' %}" class="user-menu-link nav-icon">
+                    🔔 Notifications
+                    {% if notification_count > 0 %}
+                        <span class="badge">{{ notification_count }}</span>
+                    {% endif %}
+                </a>
+
+                <a href="{% url 'settings' %}" class="user-menu-link">⚙ Settings</a>
+                <a href="{% url 'change_password' %}" class="user-menu-link">🔐Change Password</a>
+
+                <span class="last-login">
+                    Last Login: {{ request.user.last_login|date:"d M Y" }}
+                </span>
+
+                <a href="{% url 'logout' %}" class="logout-link">🚪 Logout</a>
+
+            </div>
+
+        </div>
+
+        <!-- CONTENT -->
+        <div class="content">
+            {% block content %}{% endblock %}
+        </div>
+
+    </div>
+</div>
+
+{% block extra_js %}
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const rows = document.querySelectorAll(".clickable-row");
+
+        rows.forEach(row => {
+            row.addEventListener("click", function () {
+                window.location.href = this.dataset.href;
+            });
+        });
+    });
+</script>
+
+{% endblock %}
+
+<!-- FOOTER -->
+<footer class="footer">
+    <div class="footer-left">
+        <strong>Student Management System</strong>
+        <span>© {{ now|date:"Y" }} All rights reserved</span>
+    </div>
+
+    <div class="footer-right">
+        <span>Powered by Django Framework</span>
+    </div>
+</footer>
+
+
+</body>
+</html>

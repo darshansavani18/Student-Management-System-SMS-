@@ -1,0 +1,36 @@
+{% extends "school/base.html" %}
+{% block title %}Add Class Room{% endblock %}
+{% block page_title %}Add Class Room{% endblock %}
+
+{% block content %}
+
+<div class ="card" style ="max-width:500px;">
+    <h2>Add new Class Room</h2>
+    <form method="POST">
+        {% csrf_token %}
+        <label>Class Name :</label>
+        <input type ="text" name="class_name" required>
+
+        <label>Section :</label>
+        <input type ="text" name="section" required>
+
+        <label>Class Teacher :</label>
+        <select name="class_teacher">
+            <option value ="">--Select-Teacher--</option>
+            {% for tech in teachers %}
+            <option value ="{{ tech.id }}">{{ tech.username }}</option>
+            {% endfor %}
+            
+        </select>
+        <label>Total Students</label>
+        <input type="number" name="total_students" required>
+
+        <label>Class Capacity</label>
+        <input type="number" name="capacity" required>
+
+        <button class="btn">Add Class Room</button>
+    </form>
+</div>
+
+{% endblock %}
+        

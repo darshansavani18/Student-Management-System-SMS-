@@ -1,0 +1,2 @@
+background: radial-gradient(circle, #667eea, #764ba2);
+background: conic-gradient(#667eea, #764ba2, #ff758c);

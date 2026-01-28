@@ -1,0 +1,44 @@
+{% extends 'school/base.html' %}
+
+{% block title %}Add Teacher{% endblock title %}
+{% block page_title %}Add Teacher{% endblock page_title %}
+
+{% block content %}
+
+<div class="card" style="max-width: 1200px; margin-bottom: 20px; overflow-y: auto; overflow-x: hidden; max-height: 80vh;">
+    <h3>Add New Teacher</h3>
+
+    <form method="POST" class = "form" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <label>Username</label>
+        {{ form.username }}
+
+        <label>Password</label>
+        {{ form.password }}
+
+        <label>Full Name</label>
+        {{ form.full_name }}
+
+        <label>Email</label>
+        {{ form.email }}
+
+        <label>Subject</label>
+        {{ form.subject }}
+
+        <label>Phone Number</label>
+        {{ form.phone }}
+
+        <label>Profile Image</label>
+        {{ form.profile_image }}
+
+        <br><br>
+        <button type="submit" class="login-btn">Save Teacher</button>
+    </form>
+</div>
+{% if messages %}
+    {% for message in messages %}
+        <div class="error">{{ message }}</div>
+    {% endfor %}
+{% endif %}
+{% endblock%}

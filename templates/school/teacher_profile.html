@@ -1,0 +1,35 @@
+{% extends "school/base.html" %}
+{% load static %}
+{% block title %}Teacher Profile | SMS{% endblock %}
+{% block page_title %}Teacher Profile{% endblock %}
+
+{% block content %}
+<div class="card profile-card">
+    <div class="profile-header">
+        {% if teacher.profile_image %}
+            <div class="profile-avatar">
+                <img src="{{ teacher.profile_image.url }}" alt="Profile Image" class="profile-image">
+            </div>
+        {% else %}
+            <img src="{% static 'school/default_profile.png' %}" alt="Default Profile Image" class="profile-image">
+        {% endif %}
+        <h2>{{ teacher.user.username }}</h2>
+        <p>Full Name: {{ teacher.full_name }}</p>
+        <h3 class="h3">Personal Information</h3>
+    </div>
+    <div class="profile-info">
+        
+        
+        <p><strong>Email:</strong> {{ teacher.email }}</p>
+        <p><strong>subject:</strong> {{ teacher.subject }}</p>
+        <p><strong>Phone:</strong> {{ teacher.phone }}</p>
+        <p><strong>joining_date:</strong> {{ teacher.joining_date}}</p>
+        
+    </div>
+    <div class="profile-actions">
+        <a href="{% url 'update_teacher' teacher.id %}" class="btn btn-edit">Edit Profile</a>
+        <a href="{% url 'view_teachers' %}" class="btn btn-secondary">Back to Teachers</a>
+    </div>
+</div>
+{% endblock %}
+        

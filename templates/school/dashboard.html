@@ -1,0 +1,74 @@
+{% extends 'school/base.html' %}
+
+{% block title %}
+Dashboard | SMS
+{% endblock %}
+
+{% block page_title %}
+Dashboard
+{% endblock %}
+
+{% block content %}
+
+{% if is_admin %}
+    ADMIN MENU
+{% elif is_teacher %}
+    TEACHER MENU
+{% elif is_student %}
+    STUDENT MENU
+{% endif %}
+{% load static %}
+<div class="dashboard-stats">
+
+    <div class="stat-card blue">
+        <div class="stat-icon">🎓</div>
+        <div>
+            <h2>{{ total_students }}</h2>
+            <p>Total Students</p>
+        </div>
+    </div>
+
+    <div class="stat-card green">
+        <div class="stat-icon">👨‍🏫</div>
+        <div>
+            <h2>{{ total_teachers }}</h2>
+            <p>Total Teachers</p>
+        </div>
+    </div>
+
+    <div class="stat-card orange">
+        <div class="stat-icon">📚</div>
+        <div>
+            <h2>{{ total_class }}</h2>
+            <p>Total Classes</p>
+        </div>
+    </div>
+
+    <div class="stat-card purple">
+        <div class="stat-icon">📢</div>
+        <div>
+            <h2>{{ total_notice }}</h2>
+            <p>Active Notices</p>
+        </div>
+    </div>
+
+</div>
+
+<div style="text-align:center; margin-top:20px;"class="dashboard-image-wrapper">
+  <img 
+    src="{% static 'school/images/image.png' %}" 
+    class="dashboard-image"
+    alt="Student Management System"
+    style="width:360px; height:auto; object-fit:contain;">
+</div>
+
+<div class="card">
+    <h3>System Snapshot</h3>
+
+    <ul class="snapshot-list">
+        <li><span>Last Login</span><strong>{{ request.user.last_login|date:"d M Y, H:i" }}</strong></li>
+        <li><span>Logged in as</span><strong>{{ request.user.username }}</strong></li>
+        <li><span>System Status</span><strong class="ok">Operational</strong></li>
+    </ul>
+</div>
+{% endblock %}

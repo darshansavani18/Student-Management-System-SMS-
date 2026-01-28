@@ -1,0 +1,42 @@
+{% extends 'school/base.html' %}
+
+{% block title %}Update Student{% endblock %}
+{% block page_title %}Update Student{% endblock %}
+
+{% block content %}
+
+<div class="card" style="max-width:600px;">
+    <h3>Edit Student</h3>
+
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <label>Roll Number</label>
+        <input type="text" name="roll_number" value="{{ student.roll_number }}">
+
+        <label>Class</label>
+        <input type="text" name="class_name" value="{{ student.class_name }}">
+
+        <label>Section</label>
+        <input type="text" name="section" value="{{ student.section }}">
+
+        <label>Gender</label>
+        <select name="gender">
+            <option value="Male" {% if student.gender == 'Male' %}selected{% endif %}>Male</option>
+            <option value="Female" {% if student.gender == 'Female' %}selected{% endif %}>Female</option>
+        </select>
+
+        <label>Date of Birth</label>
+        <input type="date" name="date_of_birth" value="{{ student.date_of_birth }}">
+
+        <label>Address</label>
+        <textarea name="address">{{ student.address }}</textarea>
+
+        <label>Profile Image</label>
+        <input type="file" name="profile_image">
+        
+        <button class="btn">Update Student</button>
+    </form>
+</div>
+
+{% endblock %}

@@ -1,0 +1,1097 @@
+/* =====================================================
+   GLOBAL RESET & TYPOGRAPHY
+===================================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    max-height: 100%;
+    font-family: "Segoe UI", Roboto, Arial, sans-serif;
+    background-color: var(--bg-main);
+    color: var(--text-primary);
+}
+
+/* =====================================================
+   LINKS
+===================================================== */
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* =====================================================
+   LAYOUT
+===================================================== */
+.layout {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* =====================================================
+   SIDEBAR (ERP STYLE)
+===================================================== */
+.sidebar {
+    width: 240px;
+    background-color: var(--bg-sidebar);
+    color: #e5e7eb;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+}
+
+.sidebar h2 {
+    text-align: center;
+    padding: 20px 10px;
+    font-size: 17px;
+    font-weight: 600;
+    border-bottom: 1px solid #374151;
+}
+
+.sidebar a {
+    display: block;
+    padding: 18px 20px;
+    font-size: 14px;
+    color: white;
+    transition: background 0.2s ease, color 0.2s ease;
+}
+
+.sidebar a:hover {
+    background-color: #374151;
+    color: #ffffff;
+}
+
+/* =====================================================
+   MAIN CONTENT
+===================================================== */
+.main {
+    margin-left: 240px;
+    width: calc(100% - 240px);
+}
+
+/* =====================================================
+   TOP NAVBAR
+===================================================== */
+.topbar {
+    height: 60px;
+    background-color: var(--bg-topbar);
+    padding: 0 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 4px solid var(--border-color);
+    border-color: #002c55dc;
+}
+
+.topbar h3 {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+/* ===============================
+   USER BUTTON
+================================ */
+.user-btn {
+    background: none;
+    border: none;
+    font-size: 14px;
+    font-weight: 500;
+    color: #111827;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+/* =====================================================
+   TOPBAR USER MENU (NO DROPDOWN)
+===================================================== */
+.nav-icon {
+    position: relative;
+    font-size: 15px;
+    margin-right: 15px;
+}
+
+.badge {
+    position: absolute;
+    top: -6px;
+    right: -8px;
+    background: red;
+    color: var(--text-primary);
+    font-size: 9px;
+    padding: 2px 6px;
+    border-radius: 50%;
+}
+
+.notification {
+    padding: 15px;
+    border-bottom: 1px solid #e5e7eb;
+    background: var(--text-muted);
+}
+
+.notification.unread {
+    background: var(--bg-card)
+}
+.user-menu {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    font-size: 14px;
+}
+
+/* username */
+.user-name {
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+/* menu links */
+.user-menu-link {
+    color: var(--text-secondary);
+    font-weight: 500;
+    text-decoration: none;
+    padding: 6px 10px;
+    border-radius: 6px;
+    transition: background-color 0.2s ease;
+}
+
+.user-menu-link:hover {
+    background-color: var(--border-color);
+}
+
+/* last login text */
+.last-login {
+    font-size: 12px;
+    color: var(--text-muted);
+}
+
+/* logout emphasis */
+.logout-link {
+    color: var(--danger);
+    font-weight: 600;
+}
+
+.logout-link:hover {
+    background-color: rgba(220, 38, 38, 0.12);
+}
+
+/* =====================================================
+   PAGE CONTENT
+===================================================== */
+.content {
+    padding: 30px;
+    min-height: calc(100vh - 60px); /* adjust for navbar */
+}
+
+
+/* =====================================================
+   CARDS (DASHBOARD & FORMS)
+===================================================== */
+.dashboard-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.stat-card {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 22px;
+    margin-top: 20px;
+    border-radius: 10px;
+    background: var(--bg-card);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+    transition: transform 0.2s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-4px);
+}
+
+.stat-icon {
+    font-size: 36px;
+}
+
+.stat-card h2 {
+    margin: 0;
+    font-size: 30px;
+}
+
+.stat-card p {
+    margin: 4px 0 0;
+    font-size: 14px;
+    color: var(--text-muted);
+}
+
+/* Accent borders */
+.stat-card.blue   { border-left: 5px solid #2563eb; }
+.stat-card.green  { border-left: 5px solid #16a34a; }
+.stat-card.orange { border-left: 5px solid #ea580c; }
+.stat-card.purple { border-left: 5px solid #7c3aed; }
+
+.snapshot-list {
+    list-style: none;
+    padding: 0;
+    margin-top: 15px;
+}
+
+.snapshot-list li {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.snapshot-list li:last-child {
+    border-bottom: none;
+}
+
+.snapshot-list span {
+    color: var(--text-secondary);
+}
+
+.snapshot-list strong.ok {
+    color: #16a34a;
+}
+
+/* =====================================================
+   FORMS (PROFESSIONAL STYLE)
+===================================================== */
+label {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 13px;
+    font-weight: 500;
+    color:var(--text-secondary);
+}
+
+input,
+select,
+textarea {
+    width: 100%;
+    padding: 10px 12px;
+    border-radius: 6px;
+    border: 1px solid #d1d5db;
+    font-size: 14px;
+    margin-bottom: 18px;
+    outline: none;
+    background-color: #ffffff;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    border-color: #2563eb;
+}
+
+/* =====================================================
+   BUTTONS (ENTERPRISE STYLE)
+===================================================== */
+.btn,
+.login-btn {
+    display: inline-block;
+    padding: 11px 16px;
+    background-color: #2563eb;
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.25s ease;
+}
+
+.btn:hover,
+.login-btn:hover {
+    background-color: #1d4ed8;
+}
+
+/* =====================================================
+   ALERTS / ERRORS
+===================================================== */
+.error {
+    background-color: #fef2f2;
+    color: #991b1b;
+    border-left: 4px solid #dc2626;
+    padding: 10px 12px;
+    font-size: 14px;
+    border-radius: 6px;
+    margin-bottom: 15px;
+}
+/* =====================================================
+   TABLE WRAPPER (MODULE CONTAINER)
+===================================================== */
+.table-wrapper {
+    background: #ffffff;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+}
+
+/* =====================================================
+   MODULE TITLE
+===================================================== */
+.table-wrapper h3 {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 15px;
+}
+
+/* =====================================================
+   TABLE (ERP STYLE)
+===================================================== */
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+}
+
+/* HEADER */
+.table thead {
+    background-color: #f8fafc;
+}
+
+.table th {
+    padding: 12px 14px;
+    text-align: left;
+    font-weight: 600;
+    color: var(--text-primary);
+    background: var(--bg-card);
+    border-bottom: 1px solid #e5e7eb;
+    white-space: nowrap;
+}
+
+/* BODY */
+.table td {
+    padding: 12px 14px;
+    color: black;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+/* ROW HOVER */
+.table tbody tr:hover {
+    background-color: #f9fafb;
+}
+
+/* EMPTY STATE */
+.table td[colspan] {
+    text-align: center;
+    color: #6b7280;
+    padding: 20px;
+}
+
+/* =====================================================
+   TABLE ACTION BUTTONS (FOR FUTURE)
+===================================================== */
+.table-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.btn-sm {
+    padding: 6px 10px;
+    font-size: 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    border: none;
+}
+
+/* Edit */
+.btn-edit {
+    background-color: #2563eb;
+    color: #ffffff;
+}
+
+.btn-edit:hover {
+    background-color: #1d4ed8;
+}
+
+/* Delete */
+.btn-delete {
+    background-color: #dc2626;
+    color: #ffffff;
+}
+
+.btn-delete:hover {
+    background-color: #b91c1c;
+}
+
+/* =====================================================
+   RESPONSIVE TABLE (MOBILE SAFE)
+===================================================== */
+@media (max-width: 768px) {
+    .table {
+        font-size: 13px;
+    }
+
+    .table th,
+    .table td {
+        padding: 10px;
+    }
+}
+.table-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.btn-sm {
+    padding: 6px 10px;
+    font-size: 16px;
+    border-radius: 6px;
+}
+
+.btn-edit {
+    background: #2563eb;
+    color: white;
+}
+
+.btn-delete {
+    background: #dc2626;
+    color: white;
+}
+/* =====================================================
+   MARK ATTENDANCE PAGE
+===================================================== */
+
+.attendance-card {
+    max-width: 100%;
+}
+
+.attendance-card h3 {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 18px; 
+    color: var(--text-primary);
+}
+
+/* attendance table */
+.attendance-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+/* header */
+.attendance-table thead th {
+    background-color: var(--bg-card);
+    font-weight: 600;
+    color: var(--text-primary);
+    text-align: center;
+}
+
+/* student name column */
+.attendance-table td:first-child {
+    text-align: center;
+    font-weight: 500;
+}
+
+/* radio alignment */
+.attendance-table td {
+    text-align: center;
+    vertical-align: middle;
+}
+
+/* radio buttons */
+.attendance-table input[type="radio"] {
+    transform: scale(1.25);
+    cursor: pointer;
+}
+
+/* hover effect */
+.attendance-table tbody tr:hover {
+    background-color: #f1f5f9;
+}
+
+/* submit button */
+.attendance-submit {
+    margin-top: 20px;
+    padding: 12px 20px;
+}
+label{
+    color:var(--text-primary);
+}
+/* =====================================================
+   NOTICE BOARD
+===================================================== */
+
+.notice-board {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    margin-top: 15px;
+}
+
+/* individual notice card */
+.notice-card {
+    background-color: var(--bg-card);
+    border-radius: 8px;
+    padding: 18px 22px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+    border-left: 5px solid #2563eb; /* accent */
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* hover effect */
+.notice-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+}
+
+/* notice title */
+.notice-card h4 {
+    font-size: 16px;
+    font-weight: 600;
+    color: #111827;
+    margin-bottom: 8px;
+}
+
+/* notice message */
+.notice-card p {
+    font-size: 14px;
+    color: var(--text-primary);
+    line-height: 1.6;
+    margin-bottom: 12px;
+}
+
+/* meta info */
+.notice-meta {
+    font-size: 12px;
+    color: var(--text-secondary);
+    margin-bottom: 10px;
+}
+
+/* action buttons container */
+.notice-actions {
+    display: flex;
+    gap: 10px;
+}
+
+/* small buttons */
+.notice-actions .btn-sm {
+    padding: 6px 12px;
+    font-size: 12px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+/* edit button */
+.notice-actions .btn-edit {
+    background-color: #2563eb;
+    color: #ffffff;
+}
+
+.notice-actions .btn-edit:hover {
+    background-color: #1d4ed8;
+}
+
+/* delete button */
+.notice-actions .btn-delete {
+    background-color: #dc2626;
+    color: #ffffff;
+}
+
+.notice-actions .btn-delete:hover {
+    background-color: #b91c1c;
+}
+
+/* add notice button spacing */
+.notice-add-btn {
+    margin-bottom: 15px;
+}
+/* ===============================
+   THEME VARIABLES
+================================ */
+
+:root {
+    --bg-main: #f5f7fb;
+    --bg-card: #ffffff;
+    --bg-sidebar: #002c55dc;
+    --bg-topbar: #ffffff;
+
+    --text-primary: #111827;
+    --text-secondary: #374151;
+    --text-muted: #6b7280;
+
+    --border-color: #e5e7eb;
+    --accent: #2563eb;
+    --danger: #dc2626;
+    --bg-footer: #f8fafc;
+    --border-color: #e5e7eb;
+    --text-primary: #111827;
+    --text-secondary: #374151;
+    --text-muted: #6b7280;
+}
+
+body.dark-theme {
+    --bg-footer: #0f172a;
+    --border-color: #1e293b;
+    --text-primary: #e5e7eb;
+    --text-secondary: #cbd5f5;
+    --text-muted: #94a3b8;
+    --bg-main: #0f172a;
+    --bg-card: #1e293b;
+    --bg-sidebar: #020617;
+    --bg-topbar: #020617;
+
+    --text-primary: #f8fafc;
+    --text-secondary: #cbd5f5;
+    --text-muted: #94a3b8;
+
+    --border-color: #334155;
+    --accent: #3b82f6;
+    --danger: #ef4444;
+}
+/* =====================================================
+   SETTINGS MODULE
+===================================================== */
+/*
+    Styles related to the Settings module UI.
+    This section controls layout, spacing, typography,
+    and visual hierarchy of the Settings page.
+*/
+
+.settings-container {
+    /* 
+        Main wrapper for all settings cards.
+        Uses a single-column grid layout with spacing
+        between different settings sections.
+    */
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+    max-width: 800px;
+    /* 
+        max-width prevents the settings page
+        from stretching too wide on large screens,
+        improving readability.
+    */
+}
+
+/* settings card */
+.settings-card {
+    /*
+        Individual settings section container.
+        Inherits base card styles and adds
+        custom padding for the Settings page.
+    */
+    padding: 22px 26px;
+}
+
+/* section title */
+.settings-title {
+    /*
+        Title for each settings section
+        (e.g., Appearance, Account, Notifications).
+    */
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 4px;
+    color: var(--text-primary);
+    /* 
+        Uses primary text color to maintain
+        consistency across light and dark themes.
+    */
+}
+
+/* description */
+.settings-desc {
+    /*
+        Small descriptive text under section titles.
+        Explains the purpose of the settings section.
+    */
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-bottom: 18px;
+}
+
+/* setting row */
+.setting-item {
+    /*
+        Layout for a single setting option.
+        Aligns the text content on the left
+        and the control (toggle switch) on the right.
+    */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
+
+/* label */
+.setting-label {
+    /*
+        Label text for a specific setting option
+        (e.g., Dark Theme).
+    */
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-secondary);
+}
+
+/* helper text */
+.setting-help {
+    /*
+        Helper text shown below the setting label.
+        Provides additional explanation or guidance.
+    */
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-top: 4px;
+}
+
+/* actions */
+.settings-actions {
+    /*
+        Container for action buttons such as
+        "Save Changes".
+    */
+    margin-top: 20px;
+}
+
+/* disabled sections */
+.settings-card.disabled {
+    /*
+        Visually disables future or unavailable
+        settings sections.
+        Reduced opacity and pointer-events
+        prevent user interaction.
+    */
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+/* =====================================================
+   TOGGLE SWITCH
+===================================================== */
+/*
+    Custom toggle switch styles.
+    Replaces default checkbox with a modern
+    ON/OFF switch interface.
+*/
+
+.switch {
+    /*
+        Wrapper for the toggle switch.
+        Defines overall size of the switch.
+    */
+    position: relative;
+    width: 46px;
+    height: 24px;
+}
+
+.switch input {
+    /*
+        Hides the default checkbox input.
+        The visual switch is handled by the slider element.
+    */
+    display: none;
+}
+
+.slider {
+    /*
+        Background track of the toggle switch.
+        Changes color when toggled.
+    */
+    position: absolute;
+    cursor: pointer;
+    background-color: #cbd5f5;
+    border-radius: 24px;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    transition: 0.3s;
+}
+
+.slider::before {
+    /*
+        Circular knob inside the switch.
+        Moves horizontally when the switch is toggled.
+    */
+    content: "";
+    position: absolute;
+    height: 18px;
+    width: 18px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    border-radius: 50%;
+    transition: 0.3s;
+}
+
+.switch input:checked + .slider {
+    /*
+        Changes the background color of the switch
+        when the checkbox is checked (ON state).
+    */
+    background-color: var(--accent);
+}
+
+.switch input:checked + .slider::before {
+    /*
+        Moves the knob to the right
+        to visually indicate the ON state.
+    */
+    transform: translateX(22px);
+}
+/* ===============================
+   ATTENDANCE SUMMARY
+================================ */
+
+.attendance-summary {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+    margin-bottom: 25px;
+}
+
+.summary-card {
+    background: var(--bg-card);
+    border-radius: 10px;
+    padding: 22px;
+    text-align: center;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+}
+
+.summary-card h2 {
+    margin: 0;
+    font-size: 34px;
+    color: var(--text-primary);
+}
+
+.summary-card p {
+    margin-top: 6px;
+    font-size: 14px;
+    color: var(--text-muted);
+}
+
+/* color accents */
+.summary-card.present {
+    border-left: 5px solid #16a34a;
+}
+
+.summary-card.absent {
+    border-left: 5px solid #dc2626;
+}
+/* ===============================
+   FOOTER
+================================ */
+
+.footer {
+    margin-left: 240px; /* sidebar width */
+    height: 50px;
+    padding: 0 30px;
+    background:var(--bg-footer);
+    border-top: 1px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 13px;
+    color: var(--text-muted);
+}
+
+.footer-left {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.footer-left strong {
+    color: var(--text-primary);
+    font-weight: 600;
+}
+
+.footer-right {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+}
+
+.footer .dot {
+    font-size: 10px;
+}
+.form{
+    height: 100%;
+}
+.dashboard-image {
+    animation: float 4s ease-in-out infinite;
+}
+
+@keyframes float {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0); }
+
+}
+/* Student profile page */
+.profile-card {
+    max-width: 600px;
+    margin: auto;
+    text-align: center;
+}
+
+.profile-img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 10px;
+}
+
+.profile-info {
+    margin-top: 20px;
+    text-align: left;
+}
+.clickable-row {
+    cursor: pointer;
+}
+
+.clickable-row:hover {
+    background-color: rgba(59, 130, 246, 0.08);
+}
+/* =====================================================
+   STUDENT PROFILE PAGE
+===================================================== */
+
+.profile-container {
+    max-width: 1000px;
+    margin: auto;
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 24px;
+}
+
+/* ===============================
+   PROFILE CARD (LEFT)
+================================ */
+.profile-card {
+    background: var(--card-bg);
+    border-radius: 12px;
+    padding: 22px;
+    text-align: center;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+}
+
+.profile-avatar {
+    width: 200px;
+    height: 200px;
+    margin: auto;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 4px solid var(--accent);
+}
+
+.profile-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.profile-name {
+    margin-top: 14px;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.profile-role {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-top: 4px;
+}
+
+/* ===============================
+   DETAILS CARD (RIGHT)
+================================ */
+.profile-details {
+    background: var(--card-bg);
+    border-radius: 12px;
+    padding: 26px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+}
+
+.profile-details h3 {
+    font-size: 17px;
+    margin-bottom: 18px;
+    color: var(--text-primary);
+}
+
+/* ===============================
+   INFO GRID
+================================ */
+.profile-info {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px 30px;
+    padding-top: 20px;
+    padding-left: 50px;
+}
+
+.info-item label {
+    font-size: 12px;
+    color: var(--text-muted);
+    display: block;
+    margin-bottom: 4px;
+}
+
+.info-item span {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-secondary);
+}
+.h3{
+    padding-top: 10px;
+}
+/* ===============================
+   ACTION BUTTONS
+================================ */
+.profile-actions {
+    margin-top: 25px;
+    display: flex;
+    gap: 12px;
+    padding-top: 20px;
+    padding-left: 50px;
+}
+
+.profile-actions .btn {
+    padding: 10px 16px;
+    font-size: 14px;
+}
+
+/* ===============================
+   RESPONSIVE
+================================ */
+@media (max-width: 768px) {
+    .profile-container {
+        grid-template-columns: 1fr;
+    }
+
+    .profile-info {
+        grid-template-columns: 1fr;
+    }
+}
+.notification-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 12px;
+}
+
+.delete-notification {
+    color: #ef4444;
+    font-size: 14px;
+    text-decoration: none;
+}
+
+.delete-notification:hover {
+    color: #b91c1c;
+}
+
+

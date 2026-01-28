@@ -1,0 +1,36 @@
+{% extends 'school/base.html' %}
+
+{% block title %}Update Teacher{% endblock %}
+{% block page_title %}Update Teacher{% endblock %}
+
+{% block content %}
+
+<div class="card" style="max-width:600px;">
+    <h3>Edit Teacher</h3>
+
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <label>Full_name</label>
+        <input type="text" name="full_name" value="{{ teacher.full_name }}">
+
+        <label>Email</label>
+        <input type="email" name="email" value="{{ teacher.email }}">
+
+        <label>Subject</label>
+        <input type="text" name="subject" value="{{ teacher.subject }}">
+
+        <label>Phone</label>
+        <input type="text" name="phone" value="{{ teacher.phone }}">
+
+        <label>Joining Date</label>
+        <input type="date" name="joining_date" value="{{ teacher.joining_date }}">
+
+        <label>Profile Image</label>
+        <input type="file" name="profile_image">    
+
+        <button class="btn">Update Teacher</button>
+    </form>
+</div>
+
+{% endblock %}

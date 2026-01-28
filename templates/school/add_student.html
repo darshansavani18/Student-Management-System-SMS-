@@ -1,0 +1,51 @@
+{% extends 'school/base.html' %}
+
+{% block title %}Add Student | SMS{% endblock %}
+{% block page_title %}Add Student{% endblock %}
+
+{% block content %}
+
+<div class="card" style="max-width: 1200px; margin-bottom: 20px; overflow-y: auto; overflow-x: hidden; max-height: 80vh;">
+    <h3>Add New Student</h3>
+
+    <form method="POST" class="form" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <label>Username</label>
+        {{ form.username }}
+
+        <label>Password</label>
+        {{ form.password }}
+
+        <label>Roll Number</label>
+        {{ form.roll_number }}
+
+        <label>Class</label>
+        {{ form.class_name }}
+
+        <label>Section</label>
+        {{ form.section }}
+
+        <label>Gender</label>
+        {{ form.gender }}
+
+        <label>Date of Birth</label>
+        {{ form.date_of_birth }}
+
+        <label>Address</label> 
+        {{ form.address }}
+
+        <label>Profile Image</label>
+        {{ form.profile_image }}
+
+        <br><br>
+        <button type="submit" class="login-btn">Save Student</button>
+    </form>
+</div>
+{% if messages %}
+    {% for message in messages %}
+        <div class="error">{{ message }}</div>
+    {% endfor %}
+{% endif %}
+</div>
+{% endblock %}

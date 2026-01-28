@@ -1,0 +1,60 @@
+{% extends "school/base.html" %}
+
+{% block title %}View Students | SMS{% endblock %}
+{% block page_title %}View Students{% endblock %}
+
+{% block content %}
+
+<div class="table-wrapper">
+
+    <!-- SEARCH -->
+    <form method="GET" style="margin-bottom: 15px; display:flex; gap:10px;">
+        <input type="text" name="q" placeholder="Search by username / roll / class"
+               value="{{ query }}">
+        <button class="btn">Search</button>
+        <a href="{% url 'add_student' %}" class="btn btn-primary" style="margin-left:auto;">Add Student</a>
+    </form>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Username</th>
+                <th>Roll</th>
+                <th>Class</th>
+                <th>Section</th>
+                <th>Gender</th>
+                <th>DOB</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for student in students %}
+            <tr class="clickable-row" data-href="{% url 'student_profile' student.id %}">
+                <td>{{ forloop.counter }}</td>
+                <td>{{ student.user.username }}</td>
+                <td>{{ student.roll_number }}</td>
+                <td>{{ student.class_name }}</td>
+                <td>{{ student.section }}</td>
+                <td>{{ student.gender }}</td>
+                <td>{{ student.date_of_birth }}</td>
+                <td>
+                    <div class="table-actions">
+                        <a href="{% url 'update_student' student.id %}" class="btn-sm btn-edit">Edit</a>
+                        <a href="{% url 'delete_student' student.id %}"
+                           class="btn-sm btn-delete"
+                           onclick="return confirm('Are you sure?')">Delete</a>
+                    </div>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="8">Not students found</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+</div>
+
+{% endblock %}
