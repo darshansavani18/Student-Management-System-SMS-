@@ -497,10 +497,9 @@ def delete_notification(request, id):
     notification.delete()
     return redirect(request.META.get('HTTP_REFERER', 'dashboard'))
 
+
 def update_classroom(request, id):
     classroom = get_object_or_404(ClassRoom, id=id)
-
-    # THIS LINE IS REQUIRED
     teachers = Teacher.objects.select_related('user')
 
     if request.method == "POST":
@@ -510,17 +509,19 @@ def update_classroom(request, id):
         classroom.total_students = request.POST.get('total_students')
 
         teacher_id = request.POST.get('class_teacher')
-        classroom.class_teacher = (
-            Teacher.objects.get(id=teacher_id)
-            if teacher_id else None
-        )
+
+        if teacher_id:
+            teacher = Teacher.objects.get(id=teacher_id)
+            classroom.class_teacher = teacher.user   # ONLY THIS
+        else:
+            classroom.class_teacher = None
 
         classroom.save()
-        return redirect('view_classrooms')
+        return redirect('view_classroom')
 
     return render(request, 'school/update_classroom.html', {
         'classroom': classroom,
-        'teachers': teachers,   # ✅ MUST BE HERE
+        'teachers': teachers
     })
 
 def delete_classroom(request, id):
