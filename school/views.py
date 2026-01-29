@@ -11,6 +11,7 @@ from datetime import date
 from django.utils.timezone import now
 from .forms import ChangePasswordForm
 from .utils import create_notification
+from django.shortcuts import get_object_or_404, redirect
 # Create your views here.
 def login_view(request):
     if request.user.is_authenticated:
@@ -401,7 +402,7 @@ def my_profile(request):
     )
 
 @login_required
-def view_classrooms(request):
+def view_classroom(request):
     query = request.GET.get('q')
 
     classrooms = ClassRoom.objects.all()
@@ -444,7 +445,7 @@ def add_classroom(request):
 
         return redirect('view_classroom')
 
-    # ✅ THIS RETURN FIXES YOUR ERROR
+    # THIS RETURN FIXES YOUR ERROR
     return render(
         request,
         'school/add_classroom.html',
@@ -495,3 +496,35 @@ def delete_notification(request, id):
     notification = get_object_or_404(Notification, id=id, user=request.user)
     notification.delete()
     return redirect(request.META.get('HTTP_REFERER', 'dashboard'))
+
+def update_classroom(request, id):
+    classroom = get_object_or_404(ClassRoom, id=id)
+
+    # THIS LINE IS REQUIRED
+    teachers = Teacher.objects.select_related('user')
+
+    if request.method == "POST":
+        classroom.class_name = request.POST.get('class_name')
+        classroom.section = request.POST.get('section')
+        classroom.capacity = request.POST.get('capacity')
+        classroom.total_students = request.POST.get('total_students')
+
+        teacher_id = request.POST.get('class_teacher')
+        classroom.class_teacher = (
+            Teacher.objects.get(id=teacher_id)
+            if teacher_id else None
+        )
+
+        classroom.save()
+        return redirect('view_classrooms')
+
+    return render(request, 'school/update_classroom.html', {
+        'classroom': classroom,
+        'teachers': teachers,   # ✅ MUST BE HERE
+    })
+
+def delete_classroom(request, id):
+    classroom = get_object_or_404(ClassRoom, id=id)
+    classroom.delete()
+    return redirect('view_classroom')
+

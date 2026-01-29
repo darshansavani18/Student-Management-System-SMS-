@@ -1,0 +1,68 @@
+{% extends "school/base.html" %}
+
+{% block title %}Update Classroom | SMS{% endblock %}
+{% block page_title %}Update Classroom{% endblock %}
+
+{% block content %}
+<div class="card" style="max-width: 700px;">
+
+    <h3 style="margin-bottom: 20px;">Update Classroom</h3>
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <!-- Class Name -->
+        <label>Class Name</label>
+        <input type="text"
+               name="class_name"
+               value="{{ classroom.class_name }}"
+               required>
+
+        <!-- Section -->
+        <label>Section</label>
+        <input type="text"
+               name="section"
+               value="{{ classroom.section }}"
+               required>
+
+        <!-- Class Teacher -->
+        <label>Class Teacher</label>
+        <select name="class_teacher">
+            <option value="">-- Not Assigned --</option>
+            {% for teacher in teachers %}
+                <option value="{{ teacher.id }}"
+                    {% if classroom.class_teacher and classroom.class_teacher.id == teacher.id %}
+                        selected
+                    {% endif %}>
+                    {{ teacher.user.username }}
+                </option>
+            {% endfor %}
+        </select>
+
+        <!-- Total Students -->
+        <label>Total Students</label>
+        <input type="number"
+               name="total_students"
+               value="{{ classroom.total_students }}"
+               min="0"
+               required>
+
+        <!-- Capacity -->
+        <label>Capacity</label>
+        <input type="number"
+               name="capacity"
+               value="{{ classroom.capacity }}"
+               min="1"
+               required>
+
+        <!-- Actions -->
+        <div style="margin-top: 20px; display:flex; gap:10px;">
+            <button type="submit" class="btn">Update Classroom</button>
+            <a href="{% url 'view_classroom' %}" class="btn btn-secondary">
+                Cancel
+            </a>
+        </div>
+    </form>
+
+</div>
+{% endblock %}
