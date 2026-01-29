@@ -18,7 +18,30 @@ class Teacher(models.Model):
     
     def __str__(self):
         return self.full_name
+class ClassRoom(models.Model):
+    #Represents a physical or logical classroom.
+    #Example: Class 10 - Section A
+    class_name = models.CharField(max_length=50)
+    section = models.CharField(max_length=10)
+    class_teacher = models.ForeignKey(
+        User,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name='class_teacher'
+    )
 
+    # Total number of students in the class
+    total_students = models.PositiveIntegerField()
+
+    capacity = models.PositiveIntegerField()
+
+    class meta :
+        unique_together = ('class_name', 'section')
+        ordering = ('class_name', 'section')
+
+    def __str__(self):
+        return f"{self.class_name} - {self.section}"
 # =========================
 # Student Model
 # =========================
@@ -29,8 +52,13 @@ class Student(models.Model):
     """
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     roll_number = models.IntegerField(unique=True)
-    class_name = models.CharField(max_length=50)
-    section = models.CharField(max_length=10)
+    classroom = models.ForeignKey(
+        ClassRoom,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="students"
+    )
     gender = models.CharField(
         max_length=10,
         choices=[('Male', 'Male'), ('Female', 'Female')]
@@ -84,30 +112,7 @@ class Notice(models.Model):
     def __str__(self):
         return self.title
 
-class ClassRoom(models.Model):
-    #Represents a physical or logical classroom.
-    #Example: Class 10 - Section A
-    class_name = models.CharField(max_length=50)
-    section = models.CharField(max_length=10)
-    class_teacher = models.ForeignKey(
-        User,
-        on_delete=models.SET_NULL,
-        null=True,
-        blank=True,
-        related_name='class_teacher'
-    )
 
-    # Total number of students in the class
-    total_students = models.PositiveIntegerField()
-
-    capacity = models.PositiveIntegerField()
-
-    class meta :
-        unique_together = ('class_name', 'section')
-        ordering = ('class_name', 'section')
-
-    def __str__(self):
-        return f"{self.class_name} - {self.section}"
     
 class Notification(models.Model):
     title = models.CharField(max_length=50)

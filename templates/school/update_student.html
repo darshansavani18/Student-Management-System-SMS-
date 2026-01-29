@@ -11,30 +11,46 @@
     <form method="POST" enctype="multipart/form-data">
         {% csrf_token %}
 
+        <!-- Roll Number -->
         <label>Roll Number</label>
-        <input type="text" name="roll_number" value="{{ student.roll_number }}">
+        <input type="text" name="roll_number" value="{{ student.roll_number }}" required>
 
-        <label>Class</label>
-        <input type="text" name="class_name" value="{{ student.class_name }}">
+        <label>Class & Section</label>
 
-        <label>Section</label>
-        <input type="text" name="section" value="{{ student.section }}">
+            <select name="classroom" required>
+                <option value="">-- Select Class & Section --</option>
 
+                {% for room in classrooms %}
+                    <option value="{{ room.id }}"
+                        {% if student.classroom and student.classroom.id == room.id %}
+                            selected
+                        {% endif %}
+                    >
+                        {{ room.class_name }} - {{ room.section }}
+                    </option>
+                {% endfor %}
+            </select>
+
+
+        <!-- Gender -->
         <label>Gender</label>
-        <select name="gender">
+        <select name="gender" required>
             <option value="Male" {% if student.gender == 'Male' %}selected{% endif %}>Male</option>
             <option value="Female" {% if student.gender == 'Female' %}selected{% endif %}>Female</option>
         </select>
 
+        <!-- Date of Birth -->
         <label>Date of Birth</label>
-        <input type="date" name="date_of_birth" value="{{ student.date_of_birth }}">
+        <input type="date" name="date_of_birth" value="{{ student.date_of_birth }}" required>
 
+        <!-- Address -->
         <label>Address</label>
         <textarea name="address">{{ student.address }}</textarea>
 
+        <!-- Profile Image -->
         <label>Profile Image</label>
-        <input type="file" name="profile_image">
-        
+        <input type="file" name="profile_image" value="{{ student.profile_image }}">
+
         <button class="btn">Update Student</button>
     </form>
 </div>

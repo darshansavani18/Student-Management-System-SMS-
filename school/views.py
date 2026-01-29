@@ -155,18 +155,22 @@ def delete_student(request, id):
     )
     return redirect('view_students')
 
+from .models import Student, ClassRoom
+
 def update_student(request, id):
     student = Student.objects.get(id=id)
+    classrooms = ClassRoom.objects.all()  # ✅ fetch all classrooms
 
     if request.method == "POST":
         student.roll_number = request.POST.get('roll_number')
-        student.class_name = request.POST.get('class_name')
-        student.section = request.POST.get('section')
         student.gender = request.POST.get('gender')
         student.date_of_birth = request.POST.get('date_of_birth')
         student.address = request.POST.get('address')
 
-        # ADD IMAGE HERE
+        classroom_id = request.POST.get('classroom')
+        if classroom_id:
+            student.classroom_id = classroom_id
+
         if 'profile_image' in request.FILES:
             student.profile_image = request.FILES['profile_image']
 
@@ -176,13 +180,12 @@ def update_student(request, id):
         "Student Update",
         f"student '{student.user.username}' update successfully"
         )
-
         return redirect('view_students')
 
     return render(request, 'school/update_student.html', {
-        'student': student
+        'student': student,
+        'classrooms': classrooms   #  this line is what makes your dropdown work!
     })
-
 
 def view_teachers(request): 
     query = request.GET.get('q','').strip()
@@ -403,17 +406,15 @@ def my_profile(request):
 
 @login_required
 def view_classroom(request):
-    query = request.GET.get('q')
+    search = request.GET.get('search')
 
     classrooms = ClassRoom.objects.all()
 
-    if query:
+    if search:
         classrooms = classrooms.filter(
-            class_name__icontains=query
-        ) | classrooms.filter(
-            section__icontains=query
+        Q(class_name__icontains=search)|
+        Q(section__icontains=search)
         )
-
     return render(request, 'school/view_classroom.html', {
         'classroom': classrooms
     })

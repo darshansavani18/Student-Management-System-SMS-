@@ -11,20 +11,23 @@
     <form method="POST" class="form" enctype="multipart/form-data">
         {% csrf_token %}
 
+        <!-- USER ACCOUNT -->
         <label>Username</label>
         {{ form.username }}
 
         <label>Password</label>
         {{ form.password }}
 
+        <!-- STUDENT DETAILS -->
         <label>Roll Number</label>
         {{ form.roll_number }}
 
-        <label>Class</label>
-        {{ form.class_name }}
+        <!-- CLASS + SECTION DROPDOWN -->
+        <label>Class & Section</label>
+        {{ form.classroom }}
 
-        <label>Section</label>
-        {{ form.section }}
+        <!-- REMOVE SECTION FIELD (IMPORTANT) -->
+        <!-- {{ form.section }}  REMOVED -->
 
         <label>Gender</label>
         {{ form.gender }}
@@ -42,10 +45,11 @@
         <button type="submit" class="login-btn">Save Student</button>
     </form>
 </div>
+
 {% if messages %}
     {% for message in messages %}
         <div class="error">{{ message }}</div>
     {% endfor %}
 {% endif %}
-</div>
+
 {% endblock %}

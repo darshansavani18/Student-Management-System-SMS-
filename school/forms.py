@@ -12,8 +12,7 @@ class StudentForm(forms.ModelForm):
         model = Student
         fields = [
             'roll_number',
-            'class_name',
-            'section',
+            'classroom',
             'gender',
             'date_of_birth',
             'address',
