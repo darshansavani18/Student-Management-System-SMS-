@@ -132,3 +132,19 @@ class Notification(models.Model):
     def __str__(self):
         return self.title
     
+class Subject(models.Model):
+    name = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.name
+
+class Result(models.Model):
+    student = models.ForeignKey(
+        Student,
+        on_delete=models.CASCADE,
+        related_name='results'
+    )
+    subject = models.ForeignKey(
+        Subject,
+        on_delete=models.CASCADE
+    )

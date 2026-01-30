@@ -2,22 +2,35 @@ from django import forms
 from .models import Student, Teacher
 from django.contrib.auth.models import User
 from django.contrib.auth.password_validation import validate_password
-
+from django import forms
+from .models import Student
 class StudentForm(forms.ModelForm):
     username = forms.CharField()
-    password = forms.CharField(widget=forms.PasswordInput())
+    password = forms.CharField(widget=forms.PasswordInput)
 
+    date_of_birth = forms.DateField(
+        input_formats=[
+            '%Y-%m-%d',
+            '%d-%m-%Y',
+            '%d/%m/%Y',
+            '%m/%d/%Y',
+            '%Y/%m/%d',
+        ],
+        widget=forms.DateInput(attrs={'type': 'date'})
+    )
 
     class Meta:
         model = Student
         fields = [
+            'username',
+            'password',
             'roll_number',
             'classroom',
             'gender',
             'date_of_birth',
             'address',
-            'profile_image'
-        ] 
+            'profile_image',
+        ]
 
 class TeacherForm(forms.ModelForm):
     username = forms.CharField()

@@ -530,3 +530,11 @@ def delete_classroom(request, id):
     classroom.delete()
     return redirect('view_classroom')
 
+"""@login_required
+@admin_or_teacher_only
+def add_result(request, student_id):
+    student = Student.objects.get(id=student_id):
+    subjects = Subject.objects.all()
+
+    if request.method == 'POST':
+        for subject in subjects"""
