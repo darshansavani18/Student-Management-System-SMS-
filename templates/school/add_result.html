@@ -1,0 +1,15 @@
+{% extends "school/base.html" %}
+{% block title %}Add Result{% endblock %}
+{% block page_title %}Add Result{% endblock %}
+
+{% block content %}
+<div class="card">
+    <h3>Result for {{ student.user.username }} (Roll: {{ student.roll_number }})</h3>
+
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button class="btn">Save Result</button>
+    </form>
+</div>
+{% endblock %}

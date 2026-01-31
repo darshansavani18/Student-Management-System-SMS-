@@ -1,8 +1,8 @@
 from django.shortcuts import render,redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout,update_session_auth_hash
 from django.contrib.auth.decorators import login_required
-from .models import Student, Teacher, Attendance, Notice, ClassRoom,Notification
-from .forms import StudentForm, TeacherForm
+from .models import Student, Teacher, Attendance, Notice, ClassRoom,Notification, Result
+from .forms import StudentForm, TeacherForm, ResultForm
 from django.contrib.auth.models import User,Group
 from django.db.models import Q
 from django.contrib import messages
@@ -530,11 +530,41 @@ def delete_classroom(request, id):
     classroom.delete()
     return redirect('view_classroom')
 
-"""@login_required
+@login_required
 @admin_or_teacher_only
 def add_result(request, student_id):
-    student = Student.objects.get(id=student_id):
-    subjects = Subject.objects.all()
+    student = get_object_or_404(Student, id=student_id)
 
     if request.method == 'POST':
-        for subject in subjects"""
+        form = ResultForm(request.POST)
+        
+        if form.is_valid():
+            result = form.save(commit=False)
+            result.student = student
+            result.save()
+            messages.success(request, "Result Added SuccessFully")
+            return redirect('view_students')
+    else:
+        form = ResultForm()
+
+    return render(request, 'school/add_result.html', {
+        'form': form,
+        'student': student
+    })
+
+@login_required
+@login_required
+def view_result(request, student_id):
+    student = get_object_or_404(Student, id=student_id)
+    result = get_object_or_404(Result, student=student)
+
+    # student can only see own result
+    if request.user.groups.filter(name='Student').exists():
+        if request.user != student.user:
+            return HttpResponseForbidden("Access Denied")
+
+    # admin + teacher + student (self) can view
+    return render(request, 'school/view_result.html', {
+        'student': student,
+        'result': result
+    })

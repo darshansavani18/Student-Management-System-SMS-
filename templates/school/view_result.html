@@ -1,0 +1,27 @@
+{% extends "school/base.html" %}
+{% block title %}View Result{% endblock %}
+{% block page_title %}View Result{% endblock %}
+
+{% block content %}
+
+<div class="card">
+    <h3>Result for {{ student.user.username }} </h3>
+    <h3>Roll Number: {{ student.roll_number }}</h3>
+
+    <table class ="table">
+        <tr><th>Subject</th><th>Marks</th></tr>
+        <tr><td>Mathematics</td><td>{{ result.subject1 }}</td></tr>
+        <tr><td>Scince</td><td>{{ result.subject2 }}</td></tr>
+        <tr><td>English</td><td>{{ result.subject3 }}</td></tr>
+        <tr><td>History</td><td>{{ result.subject4 }}</td></tr>
+        <tr><td>Gujarati</td><td>{{ result.subject5 }}</td></tr>
+        <tr><td>Hindi</td><td>{{ result.subject6 }}</td></tr>
+        <tr><td>Computer</td><td>{{ result.subject7 }}</td></tr>
+    </table>
+
+    <h3>Total Marks: {{ result.total }}</h3>
+    <h3>Percentage: {{ result.per }}%</h3>
+    <h3>Grade: {{ result.grade }}</h3>
+</div>
+
+{% endblock %}

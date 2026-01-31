@@ -32,5 +32,8 @@ urlpatterns = [
     path('notification/delete/<int:id>/', views.delete_notification, name="delete_notification"),
     path('classroom/update/<int:id>/', views.update_classroom, name='update_classroom'),
     path('classroom/delete/<int:id>/', views.delete_classroom, name='delete_classroom'),
+    path('result/add/<int:student_id>/', views.add_result, name='add_result'),
+    path('result/view/', views.view_result, name='view_result'),
+    path('result/view/<int:student_id>/', views.view_result, name='view_result_admin'),
 ]
 

@@ -1,6 +1,5 @@
 from django.db import models
 from django.contrib.auth.models import User
-
 # =========================
 # Teacher Model
 # =========================
@@ -132,19 +131,48 @@ class Notification(models.Model):
     def __str__(self):
         return self.title
     
-class Subject(models.Model):
-    name = models.CharField(max_length=100)
-
-    def __str__(self):
-        return self.name
 
 class Result(models.Model):
-    student = models.ForeignKey(
-        Student,
-        on_delete=models.CASCADE,
-        related_name='results'
-    )
-    subject = models.ForeignKey(
-        Subject,
-        on_delete=models.CASCADE
-    )
+    student = models.OneToOneField(Student, on_delete=models.CASCADE, related_name="result")
+    subject1 = models.IntegerField()
+    subject2 = models.IntegerField()
+    subject3 = models.IntegerField()
+    subject4 = models.IntegerField()
+    subject5 = models.IntegerField()
+    subject6 = models.IntegerField()
+    subject7 = models.IntegerField()
+
+
+    total = models.IntegerField(blank=True, null=True)
+    per = models.FloatField(blank=True, null=True)
+    grade = models.CharField(max_length=2, blank=True)
+
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def save(self, *args, **kwargs):
+        self.total =(
+            self.subject1 + self.subject2 + self.subject3 +
+            self.subject4 + self.subject5 + self.subject6 + self.subject7
+        )
+        self.per = (self.total / 700)*100
+
+        if self.per >=90:
+            self.grade='A+'
+
+        elif self.per >=80:
+            self.grade='A'
+
+        elif self.per >=70:
+            self.grade='B'
+
+        elif self.per >=60:
+            self.grade='C'
+    
+        else:
+            self.grade ='F'
+
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return f"{self.student.user.username} - Result"
+    

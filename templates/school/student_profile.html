@@ -28,9 +28,27 @@
         <p><strong>Contact Number:</strong> {{ student.contact_number }}</p>
     </div>
     <div class="profile-actions">
-        <a href="{% url 'update_student' student.id %}" class="btn btn-edit">Edit Profile</a>
-        <a href="{% url 'view_students' %}" class="btn btn-secondary">Back to Students</a>
+
+        {% if is_admin or is_teacher %}
+            <a href="{% url 'add_result' student.id %}" class="btn btn-edit">
+                ➕ Add Result
+            </a>
+
+            <a href="{% url 'view_result_admin' student.id %}" class="btn">
+                📄 View Result
+            </a>
+        {% endif %}
+
+        <a href="{% url 'update_student' student.id %}" class="btn btn-secondary">
+            Edit Profile
+        </a>
+
+        <a href="{% url 'view_students' %}" class="btn btn-secondary">
+            Back to Students
+        </a>
+
     </div>
+
 </div>
 {% endblock %}
         

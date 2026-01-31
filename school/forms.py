@@ -1,9 +1,8 @@
 from django import forms
-from .models import Student, Teacher
+from .models import Student, Teacher, Result
 from django.contrib.auth.models import User
 from django.contrib.auth.password_validation import validate_password
 from django import forms
-from .models import Student
 class StudentForm(forms.ModelForm):
     username = forms.CharField()
     password = forms.CharField(widget=forms.PasswordInput)
@@ -70,3 +69,19 @@ class ChangePasswordForm(forms.Form):
         if new and confirm and new != confirm:
             raise forms.ValidationError("New password and confirm password do not match")
         return cleaned_data 
+    
+class ResultForm(forms.ModelForm):
+    class Meta:
+        model = Result
+        fields = [
+            'subject1',
+            'subject2',
+            'subject3',
+            'subject4',
+            'subject5',
+            'subject6',
+            'subject7',
+        ]
+        widgets={
+            field: forms.NumberInput(attrs={'min':0, 'max':100}) for field in fields
+        }
