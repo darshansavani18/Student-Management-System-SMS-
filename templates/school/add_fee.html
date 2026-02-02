@@ -1,0 +1,28 @@
+{% extends "school/base.html" %}
+{% block title %}Add Fees{% endblock %}
+{% block page_title %}Add Fees{% endblock %}
+
+{% block content %}
+<div class="card">
+    <h3>Add Fees for {{ student.user.username }}</h3>
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <label>Total Fees</label>
+        {{ form.amount }}
+
+        <label>Paid Amount</label>
+        {{ form.paid_amount }}
+
+        <label>Payment Date</label>
+        {{ form.payment_date }}
+
+        <label>Remarks</label>
+        {{ form.remarks }}
+
+        <br>
+        <button class="btn">Save Fees</button>
+    </form>
+</div>
+{% endblock %}

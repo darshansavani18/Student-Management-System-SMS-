@@ -1,5 +1,5 @@
 from django import forms
-from .models import Student, Teacher, Result
+from .models import Student, Teacher, Result, Fee
 from django.contrib.auth.models import User
 from django.contrib.auth.password_validation import validate_password
 from django import forms
@@ -85,3 +85,13 @@ class ResultForm(forms.ModelForm):
         widgets={
             field: forms.NumberInput(attrs={'min':0, 'max':100}) for field in fields
         }
+
+class FeeForm(forms.ModelForm):
+    class Meta:
+        model = Fee
+        fields = [
+            'amount',
+            'paid_amount',
+            'payment_date',
+            'remarks'
+        ]

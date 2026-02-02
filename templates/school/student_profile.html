@@ -39,6 +39,14 @@
             </a>
         {% endif %}
 
+        {% if is_admin or is_teacher%}
+            <a href="{% url 'add_fee' student.id %}" class="btn btn-edit">
+                💰 Add Fees
+            </a>
+        {% endif %}
+        <a href="{% url 'view_fee' student.id %}" class="btn">
+            💵 View Fees
+
         <a href="{% url 'update_student' student.id %}" class="btn btn-secondary">
             Edit Profile
         </a>

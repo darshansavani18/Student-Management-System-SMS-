@@ -1,3 +1,43 @@
+/* ===============================
+   THEME VARIABLES
+================================ */
+:root {
+    --bg-main: #f5f7fb;
+    --bg-card: #ffffff;
+    --bg-sidebar: #002c55dc;
+    --bg-topbar: #ffffff;
+    --bg-footer: #f8fafc;
+
+    --text-primary: #111827;
+    --text-secondary: #374151;
+    --text-muted: #6b7280;
+
+    --border-color: #e5e7eb;
+
+    --accent: #2563eb;
+    --danger: #dc2626;
+}
+body.dark-theme {
+    /* Backgrounds (soft blue-slate) */
+    --bg-main: #0b1220;        /* page background */
+    --bg-card: #111827;        /* cards */
+    --bg-sidebar: #0a1428;     /* sidebar */
+    --bg-topbar: #0a1428;      /* topbar */
+    --bg-footer: #0b1220;
+
+    /* Text */
+    --text-primary: black;
+    --text-secondary: #c7d2fe;
+    --text-muted: #94a3b8;
+
+    /* Borders */
+    --border-color: #1e293b;
+
+    /* Accents */
+    --accent: #3b82f6;
+    --danger: #ef4444;
+}
+
 /* =====================================================
    GLOBAL RESET & TYPOGRAPHY
 ===================================================== */
@@ -11,7 +51,7 @@ html, body {
     max-height: 100%;
     font-family: "Segoe UI", Roboto, Arial, sans-serif;
     background-color: var(--bg-main);
-    color: var(--text-primary);
+    color: var(--text-secondary);
 }
 
 /* =====================================================
@@ -89,7 +129,7 @@ a {
 .topbar h3 {
     font-size: 18px;
     font-weight: 600;
-    color: var(--text-primary);
+    color: var(--text-secondary);
 }
 
 /* ===============================
@@ -131,6 +171,8 @@ a {
     padding: 15px;
     border-bottom: 1px solid #e5e7eb;
     background: var(--text-muted);
+    color: var(--text-secondary);
+    
 }
 
 .notification.unread {
@@ -259,7 +301,9 @@ a {
 .snapshot-list strong.ok {
     color: #16a34a;
 }
-
+.text{
+    color: var(--text-secondary);
+}
 /* =====================================================
    FORMS (PROFESSIONAL STYLE)
 ===================================================== */
@@ -371,7 +415,7 @@ textarea:focus {
 /* BODY */
 .table td {
     padding: 12px 14px;
-    color: black;
+    color: var(--text-primary);
     border-bottom: 1px solid #e5e7eb;
 }
 
@@ -468,7 +512,7 @@ textarea:focus {
     font-size: 18px;
     font-weight: 600;
     margin-bottom: 18px; 
-    color: var(--text-primary);
+    color: var(--text-secondary);
 }
 
 /* attendance table */
@@ -514,8 +558,9 @@ textarea:focus {
     padding: 12px 20px;
 }
 label{
-    color:var(--text-primary);
+    color:var(--text-secondary);
 }
+
 /* =====================================================
    NOTICE BOARD
 ===================================================== */
@@ -554,7 +599,7 @@ label{
 /* notice message */
 .notice-card p {
     font-size: 14px;
-    color: var(--text-primary);
+    color: var(--text-secondary);
     line-height: 1.6;
     margin-bottom: 12px;
 }
@@ -605,49 +650,7 @@ label{
 .notice-add-btn {
     margin-bottom: 15px;
 }
-/* ===============================
-   THEME VARIABLES
-================================ */
 
-:root {
-    --bg-main: #f5f7fb;
-    --bg-card: #ffffff;
-    --bg-sidebar: #002c55dc;
-    --bg-topbar: #ffffff;
-
-    --text-primary: #111827;
-    --text-secondary: #374151;
-    --text-muted: #6b7280;
-
-    --border-color: #e5e7eb;
-    --accent: #2563eb;
-    --danger: #dc2626;
-    --bg-footer: #f8fafc;
-    --border-color: #e5e7eb;
-    --text-primary: #111827;
-    --text-secondary: #374151;
-    --text-muted: #6b7280;
-}
-
-body.dark-theme {
-    --bg-footer: #0f172a;
-    --border-color: #1e293b;
-    --text-primary: #e5e7eb;
-    --text-secondary: #cbd5f5;
-    --text-muted: #94a3b8;
-    --bg-main: #0f172a;
-    --bg-card: #1e293b;
-    --bg-sidebar: #020617;
-    --bg-topbar: #020617;
-
-    --text-primary: #f8fafc;
-    --text-secondary: #cbd5f5;
-    --text-muted: #94a3b8;
-
-    --border-color: #334155;
-    --accent: #3b82f6;
-    --danger: #ef4444;
-}
 /* =====================================================
    SETTINGS MODULE
 ===================================================== */
@@ -904,7 +907,7 @@ body.dark-theme {
 }
 
 .footer-left strong {
-    color: var(--text-primary);
+    color: var(--text-secondary);
     font-weight: 600;
 }
 
@@ -932,7 +935,7 @@ body.dark-theme {
 }
 /* Student profile page */
 .profile-card {
-    max-width: 600px;
+    max-width: 800px;
     margin: auto;
     text-align: center;
 }
@@ -1213,4 +1216,146 @@ body.dark-theme .result-card .table tr:hover {
 
 .result-actions .btn-edit:hover {
     opacity: 0.9;
+}
+/* ===== Result / Fees Card ===== */
+.card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 20px;
+    color: var(--text-secondary);
+}
+
+/* ===== Headings ===== */
+.card h3 {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    margin-bottom: 8px;
+}
+
+/* ===== Table ===== */
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 12px;
+}
+
+.table th {
+    background: var(--bg-main);
+    color: var(--text-secondary);
+    padding: 10px;
+    font-size: 13px;
+    text-align: left;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.table td {
+    padding: 10px;
+    font-size: 14px;
+    color: var(--text-primary);
+    border-bottom: 1px solid var(--border-color);
+}
+
+/* ===== Summary ===== */
+.result-summary {
+    margin-top: 16px;
+    display: flex;
+    gap: 12px;
+}
+
+.result-box {
+    flex: 1;
+    background: var(--bg-main);
+    padding: 12px;
+    border-radius: 6px;
+    text-align: center;
+}
+
+.result-box span {
+    font-size: 12px;
+    color: var(--text-muted);
+}
+
+.result-box strong {
+    font-size: 15px;
+    color: var(--text-primary);
+}
+
+/* ===== Grade Badge ===== */
+.grade-badge {
+    padding: 6px 12px;
+    border-radius: 14px;
+    background: var(--accent);
+    color: #fff;
+    font-size: 13px;
+    font-weight: 600;
+}
+/* =====================================
+   DIGITAL CLOCK – ENTERPRISE STYLE
+===================================== */
+
+.digital-clock {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 8px 16px;
+    min-width: 120px;
+
+    font-family: "Segoe UI", monospace;
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+
+    color: var(--text-primary);
+    background-color: var(--bg-card);
+
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+
+    box-shadow:
+        0 4px 12px rgba(0, 0, 0, 0.08);
+
+    transition:
+        background-color 0.25s ease,
+        color 0.25s ease,
+        border-color 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+/* Subtle accent divider (professional touch) */
+.digital-clock::before {
+    content: "⏱";
+    margin-right: 8px;
+    font-size: 14px;
+    color: var(--text-muted);
+}
+
+/* Hover – minimal, classy */
+.digital-clock:hover {
+    border-color: var(--accent);
+    box-shadow:
+        0 6px 16px rgba(0, 0, 0, 0.12);
+}
+
+/* =====================================
+   DARK THEME – SOFT BLUE PROFESSIONAL
+===================================== */
+
+body.dark-theme .digital-clock {
+    background-color: #172036; /* soft blue-dark */
+    color: var(--text-secondary);
+    border-color: #2a3a5a;
+
+    box-shadow:
+        0 6px 18px rgba(0, 0, 0, 0.45);
+}
+
+body.dark-theme .digital-clock::before {
+    color: #7aa2ff;
+}
+
+body.dark-theme .digital-clock:hover {
+    border-color: var(--accent);
 }

@@ -66,8 +66,8 @@ Dashboard
     <h3>System Snapshot</h3>
 
     <ul class="snapshot-list">
-        <li><span>Last Login</span><strong>{{ request.user.last_login|date:"d M Y, H:i" }}</strong></li>
-        <li><span>Logged in as</span><strong>{{ request.user.username }}</strong></li>
+        <li><span>Last Login</span><strong class="text">{{ request.user.last_login|date:"d M Y, H:i" }}</strong></li>
+        <li><span>Logged in as</span><strong class="text">{{ request.user.username }}</strong></li>
         <li><span>System Status</span><strong class="ok">Operational</strong></li>
     </ul>
 </div>

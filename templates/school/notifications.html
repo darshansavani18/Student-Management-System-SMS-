@@ -9,7 +9,7 @@
     <div class="notification {% if not n.is_read %}unread{% endif %}">
         <h3>{{ n.title }}</h3>
         <p>{{ n.message }}</p>
-        <small>{{n.created_at }}</small>
+        <small style="color:var(--text-secondary)">{{n.created_at }}</small>
     
         {% if not n.read %}
         <a href="{% url 'mark_notification_read' n.id %}">
@@ -18,7 +18,7 @@
         {% endif %}
     </div>
     <div class="notification-item">
-        <span>{{ n.message }}</span>
+        <span style="color:var(--text-secondary)">{{ n.message }}</span>
 
         <a href="{% url 'delete_notification' n.id %}"
         class="delete-notification">

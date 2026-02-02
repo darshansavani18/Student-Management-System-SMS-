@@ -1,8 +1,8 @@
 from django.shortcuts import render,redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout,update_session_auth_hash
 from django.contrib.auth.decorators import login_required
-from .models import Student, Teacher, Attendance, Notice, ClassRoom,Notification, Result
-from .forms import StudentForm, TeacherForm, ResultForm
+from .models import Student, Teacher, Attendance, Notice, ClassRoom,Notification, Result, Fee
+from .forms import StudentForm, TeacherForm, ResultForm, FeeForm
 from django.contrib.auth.models import User,Group
 from django.db.models import Q
 from django.contrib import messages
@@ -589,4 +589,42 @@ def edit_result(request, student_id):
     return render(request, 'school/add_result.html', {
         'form': form,
         'student': student
+    })
+
+@login_required
+@admin_or_teacher_only
+def add_fee(request, student_id):
+    student = get_object_or_404(Student, id=student_id)
+
+    fee = Fee.objects.filter(student=student).first()
+
+    if request.method == "POST":
+        form = FeeForm(request.POST, instance=fee)
+        if form.is_valid():
+            fee = form.save(commit=False)
+            fee.student = student
+            fee.save()
+            messages.success(request, "Fee saved successfully")
+            return redirect('view_students')
+    else:
+        form = FeeForm(instance=fee)
+
+    return render(request, 'school/add_fee.html', {
+        'form': form,
+        'student': student
+    })
+
+@login_required
+def view_fee(request, student_id):
+    student = get_object_or_404(Student, id=student_id)
+
+    if request.user.groups.filter(name='Student').exists():
+        if request.user != student.user:
+            return HttpResponseForbidden("Access Deniend")
+        
+    fees = Fee.objects.filter(student = student).order_by('-created_at')
+
+    return render(request, 'school/view_fees.html',{
+        'student': student,
+        'fees': fees
     })

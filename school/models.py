@@ -176,3 +176,32 @@ class Result(models.Model):
     def __str__(self):
         return f"{self.student.user.username} - Result"
     
+class Fee(models.Model):
+    student = models.ForeignKey(
+        Student,
+        on_delete=models.CASCADE,
+        related_name="fees"
+    )
+    amount = models.PositiveIntegerField()
+    paid_amount = models.PositiveIntegerField(default=0)
+    status = models.CharField(
+        max_length=10,
+        choices=[
+            ('paid', 'paid'),
+            ('panding', 'panding')
+        ]
+    )
+    payment_date = models.DateField(null=True, blank=True)
+    remarks = models.TextField(blank=True)
+    created_at = models.DateField(auto_now_add=True)
+
+    def save(self, *args, **kwargs):
+        if self.paid_amount >= self.amount:
+            self.status = 'paid'
+        else:
+            self.status = 'panding'
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return f"{self.student.user.username}-{self.status}"
+    

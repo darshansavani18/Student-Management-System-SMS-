@@ -1,0 +1,38 @@
+{% extends "school/base.html" %}
+{% block title %}Fees Details{% endblock %}
+{% block page_title %}Fees Details{% endblock %}
+
+{% block content %}
+<div class="card">
+    <h3>Fees Details – {{ student.user.username }}</h3>
+
+    {% if fees %}
+    <table class="table">
+        <thead>
+            <tr>
+                <th>#
+                <th>Date</th>
+                <th>Total</th>
+                <th>Paid</th>
+                <th>Status</th>
+                <th>Remarks</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for fee in fees %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ fee.payment_date|default:"-" }}</td>
+                <td>{{ fee.amount }}</td>
+                <td>{{ fee.paid_amount }}</td>
+                <td>{{ fee.status }}</td>
+                <td>{{ fee.remarks|default:"-" }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+        <p style="color: var(--text-muted);">No fee records available</p>
+    {% endif %}
+</div>
+{% endblock %}

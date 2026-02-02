@@ -36,5 +36,7 @@ urlpatterns = [
     path('result/view/', views.view_result, name='view_result'),
     path('result/view/<int:student_id>/', views.view_result, name='view_result_admin'),
     path('result/edit/<int:student_id>/', views.edit_result, name='edit_result'),
+    path('fees/add/<int:student_id>/', views.add_fee, name='add_fee'),
+    path('fees/view/<int:student_id>/', views.view_fee, name='view_fee'),
 ]
 

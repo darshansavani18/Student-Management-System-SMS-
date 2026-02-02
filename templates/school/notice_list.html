@@ -12,7 +12,7 @@
     {% for notice in notices %}
     <div class="notice-card">
         <h3>{{ notice.title }}</h3>
-        <p>{{ notice.message }}</p>
+        <p style="color:var(--text-secondary)">{{ notice.message }}</p>
         
         <div class="notice-meta">
             Posted By {{ notice.created_by.username }} on {{ notice.created_at|date:"d M Y" }}
