@@ -12,6 +12,8 @@ from django.utils.timezone import now
 from .forms import ChangePasswordForm
 from .utils import create_notification
 from django.shortcuts import get_object_or_404, redirect
+from django.http import HttpResponseForbidden
+
 # Create your views here.
 def login_view(request):
     if request.user.is_authenticated:
@@ -126,21 +128,20 @@ def add_teacher(request):
         form = TeacherForm()
     return render(request, 'school/add_teacher.html', {'form': form})
 
-def view_students(request): 
-    query = request.GET.get('q','').strip()
+def view_students(request):
+    students = Student.objects.select_related('classroom', 'user')
 
-    students = Student.objects.select_related('user').all()
-
-    if query:
+    q = request.GET.get('q')
+    if q:
         students = students.filter(
-            Q(user__username__icontains=query) |
-            Q(roll_number__icontains=query) |
-            Q(class_name__icontains=query)
+            Q(user__username__icontains=q) |
+            Q(roll_number__icontains=q) |
+            Q(classroom__class_name__icontains=q) |
+            Q(classroom__section__icontains=q)
         )
 
     return render(request, 'school/view_students.html', {
-       'students': students,
-       'query': query
+        'students': students
     })
 
 def delete_student(request, id):
@@ -455,16 +456,17 @@ def add_classroom(request):
 
 @login_required
 def student_profile(request, student_id):
-   """
-    Displays the profile of a single student.
-    """
-   student = get_object_or_404(Student, id=student_id)
+    student = get_object_or_404(Student, id=student_id)
 
-   return render(
-       request,
-       'school/student_profile.html',
-       {'student': student}
-   ) 
+    # STUDENT: only allow own profile
+    if request.user.groups.filter(name='Student').exists():
+        if request.user != student.user:
+            return HttpResponseForbidden("Access Denied")
+
+    # ADMIN / TEACHER: allowed
+    return render(request, 'school/student_profile.html', {
+        'student': student
+    })
 @login_required
 def teacher_profile(request, teacher_id):
     teacher = get_object_or_404(Teacher, id=teacher_id)
@@ -554,17 +556,37 @@ def add_result(request, student_id):
 
 @login_required
 @login_required
+@login_required
 def view_result(request, student_id):
     student = get_object_or_404(Student, id=student_id)
-    result = get_object_or_404(Result, student=student)
+    result = Result.objects.filter(student=student).first()
 
-    # student can only see own result
+    # student can only view own result
     if request.user.groups.filter(name='Student').exists():
         if request.user != student.user:
             return HttpResponseForbidden("Access Denied")
 
-    # admin + teacher + student (self) can view
     return render(request, 'school/view_result.html', {
         'student': student,
         'result': result
+    })
+
+@login_required
+@admin_or_teacher_only
+def edit_result(request, student_id):
+    student = get_object_or_404(Student, id=student_id)
+    result = get_object_or_404(Result, student=student)
+
+    if request.method == "POST":
+        form = ResultForm(request.POST, instance=result)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Result updated successfully")
+            return redirect('view_result', student_id=student.id)
+    else:
+        form = ResultForm(instance=result)
+
+    return render(request, 'school/add_result.html', {
+        'form': form,
+        'student': student
     })

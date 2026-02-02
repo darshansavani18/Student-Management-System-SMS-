@@ -4,24 +4,56 @@
 
 {% block content %}
 
-<div class="card">
-    <h3>Result for {{ student.user.username }} </h3>
+<div class="result-card">
+    <h3>Result for {{ student.user.username }}</h3>
     <h3>Roll Number: {{ student.roll_number }}</h3>
 
-    <table class ="table">
-        <tr><th>Subject</th><th>Marks</th></tr>
-        <tr><td>Mathematics</td><td>{{ result.subject1 }}</td></tr>
-        <tr><td>Scince</td><td>{{ result.subject2 }}</td></tr>
-        <tr><td>English</td><td>{{ result.subject3 }}</td></tr>
-        <tr><td>History</td><td>{{ result.subject4 }}</td></tr>
-        <tr><td>Gujarati</td><td>{{ result.subject5 }}</td></tr>
-        <tr><td>Hindi</td><td>{{ result.subject6 }}</td></tr>
-        <tr><td>Computer</td><td>{{ result.subject7 }}</td></tr>
-    </table>
+    {% if result %}
 
-    <h3>Total Marks: {{ result.total }}</h3>
-    <h3>Percentage: {{ result.per }}%</h3>
-    <h3>Grade: {{ result.grade }}</h3>
+        <table class="table">
+            <tr><th>Subject</th><th>Marks</th></tr>
+            <tr><td>Mathematics</td><td>{{ result.subject1 }}</td></tr>
+            <tr><td>Science</td><td>{{ result.subject2 }}</td></tr>
+            <tr><td>English</td><td>{{ result.subject3 }}</td></tr>
+            <tr><td>History</td><td>{{ result.subject4 }}</td></tr>
+            <tr><td>Gujarati</td><td>{{ result.subject5 }}</td></tr>
+            <tr><td>Hindi</td><td>{{ result.subject6 }}</td></tr>
+            <tr><td>Computer</td><td>{{ result.subject7 }}</td></tr>
+        </table>
+
+        <div class="result-summary">
+            <div class="result-box">
+                <span>Total Marks</span>
+                <strong>{{ result.total }}</strong>
+            </div>
+            <div class="result-box">
+                <span>Percentage</span>
+                <strong>{{ result.per }}%</strong>
+            </div>
+            <div class="result-box">
+                <span>Grade</span>
+                <strong class="result-grade">{{ result.grade }}</strong>
+            </div>
+        </div>
+
+        <!-- EDIT RESULT BUTTON -->
+        {% if is_admin or is_teacher %}
+            <a href="{% url 'edit_result' student.id %}" class="btn btn-edit">
+                Edit Result
+            </a>
+        {% endif %}
+
+    {% else %}
+        <div class="error" style="margin-top:15px;">
+            No Result Available
+        </div>
+
+        {% if is_admin or is_teacher %}
+            <a href="{% url 'add_result' student.id %}" class="btn">
+                Add Result
+            </a>
+        {% endif %}
+    {% endif %}
 </div>
 
 {% endblock %}
