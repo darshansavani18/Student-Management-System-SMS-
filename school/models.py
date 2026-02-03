@@ -205,4 +205,33 @@ class Fee(models.Model):
 
     def __str__(self):
         return f"{self.student.user.username}-{self.status}"
-    
+
+# school/models.py
+
+class Assignment(models.Model):
+    title = models.CharField(max_length=200)
+    description = models.TextField()
+    subject = models.CharField(max_length=100)
+
+    classroom = models.ForeignKey(
+        ClassRoom,
+        on_delete=models.CASCADE,
+        related_name='assignments'
+    )
+
+    due_date = models.DateField()
+    attachment = models.FileField(
+        upload_to='assignments/',
+        blank=True,
+        null=True
+    )
+
+    created_by = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE
+    )
+
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.title} - {self.classroom}"

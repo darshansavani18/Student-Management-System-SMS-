@@ -33,10 +33,14 @@ urlpatterns = [
     path('classroom/update/<int:id>/', views.update_classroom, name='update_classroom'),
     path('classroom/delete/<int:id>/', views.delete_classroom, name='delete_classroom'),
     path('result/add/<int:student_id>/', views.add_result, name='add_result'),
-    path('result/view/', views.view_result, name='view_result'),
     path('result/view/<int:student_id>/', views.view_result, name='view_result_admin'),
+    path('result/view/<int:student_id>/', views.view_result, name='view_result'),
     path('result/edit/<int:student_id>/', views.edit_result, name='edit_result'),
     path('fees/add/<int:student_id>/', views.add_fee, name='add_fee'),
     path('fees/view/<int:student_id>/', views.view_fee, name='view_fee'),
+    path('assignments/', views.view_assignments, name='view_assignments'),
+    path('assignments/add/', views.add_assignment, name='add_assignment'),
+    path('assignments/update/<int:id>/', views.update_assignment, name='update_assignment'),
+    path('assignments/delete/<int:id>/', views.delete_assignment, name='delete_assignment'),
 ]
 

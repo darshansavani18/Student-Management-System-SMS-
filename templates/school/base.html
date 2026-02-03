@@ -27,7 +27,8 @@
             <a href="{% url 'notice_list' %}">📢 Notice Board</a>
             <a href="{% url 'add_classroom' %}">➕ Add Class Room</a>
             <a href="{% url 'view_classroom' %}">🏫 View Class</a>
-             
+            <a href="{% url 'add_assignment' %}">➕ Add Assignment</a>
+            <a href="{% url 'view_assignments' %}">🗂 View Assignment</a>
         {% elif is_teacher %}
             <!-- TEACHER MENU -->
             <a href="{% url 'dashboard' %}">📊 Dashboard</a>
@@ -37,7 +38,8 @@
             <a href="{% url 'view_attendance' %}">📅 View Attendance</a>
             <a href="{% url 'notice_list' %}">📢 Notice Board</a>
             <a href="{% url 'view_classroom' %}">🏫 View Class</a>
-
+            <a href="{% url 'add_assignment' %}">➕ Add Assignment</a>
+            <a href="{% url 'view_assignments' %}">🗂 View Assignment</a>
 
         {% elif is_student %}
             <!-- STUDENT MENU -->
@@ -46,6 +48,7 @@
             <a href="{% url 'notice_list' %}">📢 Notice Board</a>
             <a href="{% url 'view_students' %}">👨‍🎓 View Students</a>
             <a href="{% url 'view_classroom' %}">🏫 View Class</a>
+            <a href="{% url 'view_assignments' %}">🗂 View Assignment</a>
         {% endif %}
 
     </div>

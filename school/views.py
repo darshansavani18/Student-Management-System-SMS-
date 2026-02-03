@@ -1,8 +1,8 @@
 from django.shortcuts import render,redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout,update_session_auth_hash
 from django.contrib.auth.decorators import login_required
-from .models import Student, Teacher, Attendance, Notice, ClassRoom,Notification, Result, Fee
-from .forms import StudentForm, TeacherForm, ResultForm, FeeForm
+from .models import Student, Teacher, Attendance, Notice, ClassRoom,Notification, Result, Fee, Assignment
+from .forms import StudentForm, TeacherForm, ResultForm, FeeForm, AssignmentForm
 from django.contrib.auth.models import User,Group
 from django.db.models import Q
 from django.contrib import messages
@@ -569,8 +569,6 @@ def add_result(request, student_id):
     })
 
 @login_required
-@login_required
-@login_required
 def view_result(request, student_id):
     student = get_object_or_404(Student, id=student_id)
     result = Result.objects.filter(student=student).first()
@@ -642,3 +640,57 @@ def view_fee(request, student_id):
         'student': student,
         'fees': fees
     })
+
+@login_required
+@admin_or_teacher_only
+def add_assignment(request):
+    if request.method == 'POST':
+        form = AssignmentForm(request.POST, request.FILES)
+        if form.is_valid():
+            assignment = form.save(commit=False)
+            assignment.created_by = request.user
+            assignment.save()
+
+            messages.success(request, "Assignment added successfully")
+            return redirect('view_assignments')
+    else:
+        form = AssignmentForm()
+
+    return render(request, 'school/add_assignment.html', {'form': form})
+
+@login_required
+def view_assignments(request):
+    if request.user.groups.filter(name='Student').exists():
+        assignments = Assignment.objects.filter(
+            classroom=request.user.student.classroom
+        )
+    else:
+        assignments = Assignment.objects.all()
+
+    return render(request, 'school/view_assignments.html', {
+        'assignments': assignments
+    })
+@login_required
+@admin_or_teacher_only
+def update_assignment(request, id):
+    assignment = get_object_or_404(Assignment, id=id)
+
+    if request.method == 'POST':
+        form = AssignmentForm(request.POST, request.FILES, instance=assignment)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Assignment updated")
+            return redirect('view_assignments')
+    else:
+        form = AssignmentForm(instance=assignment)
+
+    return render(request, 'school/update_assignment.html', {
+        'form': form
+    })
+@login_required
+@admin_or_teacher_only
+def delete_assignment(request, id):
+    assignment = get_object_or_404(Assignment, id=id)
+    assignment.delete()
+    messages.success(request, "Assignment deleted")
+    return redirect('view_assignments')

@@ -1,0 +1,47 @@
+{% extends "school/base.html" %}
+{% block title %}Assignments{% endblock %}
+{% block page_title %}Assignments{% endblock %}
+
+{% block content %}
+<div class="table-wrapper">
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Title</th>
+            <th>Subject</th>
+            <th>Class</th>
+            <th>Due Date</th>
+            <th>File</th>
+            {% if is_admin or is_teacher %}
+            <th>Actions</th>
+            {% endif %}
+        </tr>
+    </thead>
+    <tbody>
+    {% for a in assignments %}
+        <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ a.title }}</td>
+            <td>{{ a.subject }}</td>
+            <td>{{ a.classroom }}</td>
+            <td>{{ a.due_date }}</td>
+            <td>
+                {% if a.attachment %}
+                    <a href="{{ a.attachment.url }}">Download</a>
+                {% else %} — {% endif %}
+            </td>
+            {% if is_admin or is_teacher %}
+            <td>
+                <a href="{% url 'update_assignment' a.id %}" class="btn-sm btn-edit">Edit</a>
+                <a href="{% url 'delete_assignment' a.id %}" class="btn-sm btn-delete">Delete</a>
+            </td>
+            {% endif %}
+        </tr>
+    {% empty %}
+        <tr><td colspan="6">No assignments available</td></tr>
+    {% endfor %}
+    </tbody>
+</table>
+</div>
+{% endblock %}

@@ -1,5 +1,5 @@
 from django import forms
-from .models import Student, Teacher, Result, Fee
+from .models import Student, Teacher, Result, Fee, Assignment
 from django.contrib.auth.models import User
 from django.contrib.auth.password_validation import validate_password
 from django import forms
@@ -95,3 +95,22 @@ class FeeForm(forms.ModelForm):
             'payment_date',
             'remarks'
         ]
+
+# school/forms.py
+
+class AssignmentForm(forms.ModelForm):
+    class Meta:
+        model = Assignment
+        fields = [
+            'title',
+            'subject',
+            'classroom',
+            'due_date',
+            'description',
+            'attachment',
+        ]
+
+        widgets = {
+            'due_date': forms.DateInput(attrs={'type': 'date'}),
+            'description': forms.Textarea(attrs={'rows': 4}),
+        }
