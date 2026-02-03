@@ -33,12 +33,10 @@
             <a href="{% url 'add_result' student.id %}" class="btn btn-edit">
                 ➕ Add Result
             </a>
-
-            <a href="{% url 'view_result_admin' student.id %}" class="btn">
-                📄 View Result
-            </a>
         {% endif %}
-
+        <a href="{% url 'view_result_admin' student.id %}" class="btn">
+            📄 View Result
+        </a>
         {% if is_admin or is_teacher%}
             <a href="{% url 'add_fee' student.id %}" class="btn btn-edit">
                 💰 Add Fees

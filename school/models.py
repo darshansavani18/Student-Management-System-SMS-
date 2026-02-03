@@ -1,4 +1,5 @@
 from django.db import models
+from decimal import Decimal
 from django.contrib.auth.models import User
 # =========================
 # Teacher Model
@@ -144,7 +145,7 @@ class Result(models.Model):
 
 
     total = models.IntegerField(blank=True, null=True)
-    per = models.FloatField(blank=True, null=True)
+    per = models.DecimalField(blank=True, null=True, max_digits=5, decimal_places=2)
     grade = models.CharField(max_length=2, blank=True)
 
     created_at = models.DateTimeField(auto_now_add=True)

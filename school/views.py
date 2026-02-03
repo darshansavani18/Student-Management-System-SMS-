@@ -444,7 +444,11 @@ def add_classroom(request):
             total_students=total_students,
             class_teacher=class_teacher
         )
-
+        create_notification(
+                user= request.user,
+                title= "ClassRoom Added",
+                message= f"ClassRoom '{class_name}' added successfully"
+        )
         return redirect('view_classroom')
 
     # THIS RETURN FIXES YOUR ERROR
@@ -520,6 +524,11 @@ def update_classroom(request, id):
             classroom.class_teacher = None
 
         classroom.save()
+        create_notification(
+                user= request.user,
+                title= "ClassRoom Edited",
+                message= f"ClassRoom '{classroom}' Edited successfully"
+        )
         return redirect('view_classroom')
 
     return render(request, 'school/update_classroom.html', {
@@ -530,6 +539,11 @@ def update_classroom(request, id):
 def delete_classroom(request, id):
     classroom = get_object_or_404(ClassRoom, id=id)
     classroom.delete()
+    create_notification(
+                user= request.user,
+                title= "ClassRoom Added",
+                message= f"ClassRoom '{classroom}' Delete successfully"
+    )
     return redirect('view_classroom')
 
 @login_required
