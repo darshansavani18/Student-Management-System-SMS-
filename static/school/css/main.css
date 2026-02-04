@@ -9,6 +9,7 @@
     --bg-footer: #f8fafc;
 
     --text-primary: #111827;
+    --text-genral: white;
     --text-secondary: #374151;
     --text-muted: #6b7280;
 
@@ -28,6 +29,7 @@ body.dark-theme {
     /* Text */
     --text-primary: black;
     --text-secondary: #c7d2fe;
+    --text-genral: white;
     --text-muted: #94a3b8;
 
     /* Borders */
@@ -70,43 +72,92 @@ a {
     min-height: 100vh;
 }
 
+
 /* =====================================================
-   SIDEBAR (ERP STYLE)
+   SIDEBAR – 3D ERP STYLE (LIGHT + DARK THEME SAFE)
 ===================================================== */
 .sidebar {
     width: 240px;
-    background-color: var(--bg-sidebar);
-    color: #e5e7eb;
     position: fixed;
     top: 0;
     left: 0;
-    height: 100%;
+    height: 100vh;
+
+    background: linear-gradient(
+        180deg,
+        rgba(255,255,255,0.04),
+        rgba(0,0,0,0.08)
+    ),
+    var(--bg-sidebar);
+
+    color: var(--text-secondary);
+
+    /* 3D DEPTH */
+    box-shadow:
+        6px 0 18px rgba(0, 0, 0, 0.35),
+        inset -1px 0 0 rgba(255, 255, 255, 0.08);
+
+    transform: translateZ(0);
     overflow-y: auto;
     scrollbar-width: none;
 }
-.scrollbar{
+
+/* Hide scrollbar (clean look) */
+.sidebar::-webkit-scrollbar {
     display: none;
 }
 
+/* Sidebar title */
 .sidebar h2 {
     text-align: center;
-    padding: 20px 10px;
-    font-size: 17px;
+    padding: 20px 12px;
+    font-size: 16px;
     font-weight: 600;
-    border-bottom: 1px solid #374151;
+    letter-spacing: 0.6px;
+
+    color: var(--text-genral);
+
+    /* subtle divider */
+    border-bottom: 1px solid var(--border-color);
+
+    /* slight 3D emboss */
+    text-shadow: 0 1px 1px rgba(0,0,0,0.4);
 }
 
+/* Sidebar links */
 .sidebar a {
+    position: relative;
     display: block;
-    padding: 18px 20px;
+    padding: 16px 22px;
     font-size: 14px;
-    color: white;
-    transition: background 0.2s ease, color 0.2s ease;
+    color: var(--text-genral);
+    text-decoration: none;
+
+    transition: all 0.25s ease;
 }
 
+/* Hover 3D effect */
 .sidebar a:hover {
-    background-color: #374151;
-    color: #ffffff;
+    background: linear-gradient(
+        90deg,
+        rgba(255,255,255,0.08),
+        rgba(0,0,0,0.12)
+    );
+
+    color: var(--text-primary);
+
+    /* pop-out effect */
+    transform: translateX(4px);
+    box-shadow: inset 4px 0 0 var(--accent);
+}
+
+/* Active / current page */
+.sidebar a.active {
+    background: rgba(255,255,255,0.12);
+    color: var(--text-primary);
+    box-shadow:
+        inset 4px 0 0 var(--accent),
+        inset 0 0 10px rgba(0,0,0,0.3);
 }
 
 /* =====================================================
@@ -118,25 +169,99 @@ a {
 }
 
 /* =====================================================
-   TOP NAVBAR
+   TOPBAR – 3D ERP STYLE
 ===================================================== */
 .topbar {
     height: 60px;
-    background-color: var(--bg-topbar);
-    padding: 0 30px;
+    padding: 0 28px;
+
     display: flex;
     align-items: center;
     justify-content: space-between;
-    border-bottom: 4px solid var(--border-color);
-    border-color: #002c55dc;
+
+    background:
+        linear-gradient(
+            180deg,
+            rgba(255,255,255,0.06),
+            rgba(0,0,0,0.12)
+        ),
+        var(--bg-topbar);
+
+    /* 3D depth */
+    box-shadow:
+        0 6px 18px rgba(0, 0, 0, 0.25),
+        inset 0 -1px 0 rgba(255, 255, 255, 0.08);
+
+    border-bottom: 1px solid var(--border-color);
+
+    position: sticky;
+    top: 0;
+    z-index: 100;
 }
 
+/* Page title */
 .topbar h3 {
-    font-size: 18px;
+    font-size: 17px;
     font-weight: 600;
-    color: var(--text-secondary);
+    letter-spacing: 0.4px;
+
+    color: var(--text-genral);
+
+    /* subtle 3D emboss */
+    text-shadow: 0 1px 1px rgba(0,0,0,0.35);
 }
 
+/* User menu (right side) */
+.topbar .user-menu {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+/* Topbar links */
+.topbar a {
+    font-size: 14px;
+    color: var(--text-secondary);
+    text-decoration: none;
+
+    padding: 6px 10px;
+    border-radius: 6px;
+
+    transition: all 0.25s ease;
+}
+
+/* Hover effect */
+.topbar a:hover {
+    background: rgba(255, 255, 255, 0.12);
+    color: var(--text-primary);
+
+    /* small lift effect */
+    transform: translateY(-1px);
+    box-shadow: 0 3px 6px rgba(0,0,0,0.25);
+}
+
+/* Active icon badge (notifications) */
+.topbar .badge {
+    background: var(--accent);
+    color: #fff;
+    font-size: 11px;
+    padding: 2px 6px;
+    border-radius: 999px;
+    margin-left: 4px;
+}
+
+/* Digital clock */
+.digital-clock {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-muted);
+
+    padding: 6px 10px;
+    border-radius: 6px;
+
+    background: rgba(255,255,255,0.08);
+    box-shadow: inset 0 0 6px rgba(0,0,0,0.25);
+}
 /* ===============================
    USER BUTTON
 ================================ */
@@ -1028,7 +1153,7 @@ label{
 .profile-details h3 {
     font-size: 17px;
     margin-bottom: 18px;
-    color: var(--text-primary);
+    color: var(--text-secondary);
 }
 
 /* ===============================
@@ -1052,7 +1177,7 @@ label{
 .info-item span {
     font-size: 14px;
     font-weight: 500;
-    color: var(--text-secondary);
+    color: var(--text-primary);
 }
 .h3{
     padding-top: 10px;
