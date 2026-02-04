@@ -12,7 +12,22 @@ A web-based student management system built with Django. This application allows
   - Update student information.
   - Delete students (including associated user accounts).
 - **Teacher Management**:
-  - Add new teachers with details like full name, email, subject, and phone number.
+  - Add new teachers with details like full name, email, subject, phone number, joining date, and profile picture.
+- **Classroom Management**:
+  - Manage classes and sections.
+  - Assign class teachers and monitor class capacity.
+- **Attendance System**:
+  - Track daily attendance for students (Present/Absent).
+- **Result Management**:
+  - Manage marks for 7 subjects.
+  - Automatic calculation of total, percentage, and grade (A+, A, B, C, F).
+- **Fee Management**:
+  - Record fee payments and track status (Paid/Pending).
+- **Assignment System**:
+  - Teachers can upload assignments with descriptions, due dates, and attachments.
+- **Communication**:
+  - **Notices**: Broadcast important announcements.
+  - **Notifications**: User-specific alerts and updates.
 - **Responsive Design**: Uses CSS for a clean and user-friendly interface.
 
 ## Technology Stack
@@ -84,7 +99,7 @@ student-management-system/
 │   ├── urls.py           # Main URL configuration
 │   └── ...
 ├── school/               # Django app for school management
-│   ├── models.py         # Database models (Student, Teacher)
+│   ├── models.py         # Database models (Student, Teacher, Attendance, etc.)
 │   ├── views.py          # View functions
 │   ├── forms.py          # Django forms
 │   ├── urls.py           # App URL configuration
@@ -93,6 +108,10 @@ student-management-system/
 │   └── school/
 ├── static/               # Static files (CSS, JS)
 │   └── school/
+├── media/                # User-uploaded content (Profiles, Assignments)
+│   ├── student_profiles/
+│   ├── teacher_profiles/
+│   └── assignments/
 ├── db.sqlite3            # SQLite database
 └── manage.py             # Django management script
 ```
